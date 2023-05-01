@@ -1,11 +1,15 @@
 package com.example.saluslink
 
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.saluslink.databinding.ActivityMainBinding
+import com.example.saluslink.ui.MessageFragment
+import com.example.saluslink.ui.SettingsFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -36,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFunc() {
         setSupportActionBar(mToolbar)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.data_container, MessageFragment()).commit()
         createHeader()
         createDrawer()
     }
@@ -85,6 +91,11 @@ class MainActivity : AppCompatActivity() {
                     position: Int,
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
+                    when(position){
+                        11 -> supportFragmentManager.beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.data_container, SettingsFragment()).commit()
+                    }
                     Toast.makeText(applicationContext, position.toString(), Toast.LENGTH_SHORT).show()
                     return false
                 }
