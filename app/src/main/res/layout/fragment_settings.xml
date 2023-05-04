@@ -58,10 +58,40 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_btn_change_photo"
+        style="@style/settings_button_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_text_account">
+
+        <TextView
+            android:id="@+id/settings_photo"
+            style="@style/normal_text_style"
+            android:text="@string/change_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/settings_label_photo"
+            style="@style/additional_text_style"
+            android:text="@string/additional_change_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_photo" />
+
+        <View
+            style="@style/separator_style"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_label_photo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_btn_change_number_phone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_text_account"
+        app:layout_constraintTop_toBottomOf="@id/settings_btn_change_photo"
         style="@style/settings_button_style">
 
         <TextView

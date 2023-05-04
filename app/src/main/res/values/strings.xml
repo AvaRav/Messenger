@@ -11,4 +11,7 @@
     <string name="change_fio">Нажмите, чтобы изменить данные</string>
     <string name="settings_about_me">Напишите что-нибудь о себе</string>
     <string name="settings_about">О себе</string>
+    <string name="additional_change_photo">Нажмите, чтобы изменить фотографию</string>
+    <string name="change_photo">Выбрать фото</string>
+    <string name="settings_menu_exit">Выйти</string>
 </resources>
