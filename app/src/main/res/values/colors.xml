@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8BFFE8</color>
+    <color name="colorPrimary">#DDFFF7</color>
     <color name="colorPrimaryVariant">#00FFB6</color>
+    <color name="colorPressedButton">#84E4DC</color>
     <color name="statusBarColor">#80F8EA</color>
+    <color name="colorFocusedText">#0A875A</color>
+    <color name="colorNameText">#054252</color>
+    <color name="colorAdditionalText">#8B9B96</color>
+    <color name="colorBorder">#0A8783</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
