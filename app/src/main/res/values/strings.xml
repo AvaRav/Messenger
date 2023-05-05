@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">SalusLink</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_user_name">Name Subname</string>
     <string name="default_number">+79009182391</string>
     <string name="default_status_online">В сети</string>
     <string name="settings_account">Аккаунт</string>
     <string name="settings_label_change_number">Нажмите чтобы изменить номер телефона</string>
-    <string name="default_name">Name Subname</string>
     <string name="change_fio">Нажмите, чтобы изменить данные</string>
     <string name="settings_about_me">Напишите что-нибудь о себе</string>
     <string name="settings_about">О себе</string>
     <string name="additional_change_photo">Нажмите, чтобы изменить фотографию</string>
     <string name="change_photo">Выбрать фото</string>
     <string name="settings_menu_exit">Выйти</string>
+    <string name="phone_hint">Телефон</string>
+    <string name="password_hint">Пароль</string>
+    <string name="enter_button">Войти</string>
+    <string name="registration">Регистрация</string>
 </resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
+
+    <ImageView
+        android:id="@+id/info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/info"
+        style="@style/info_icon_style" />
+
+    <ImageView
+        android:id="@+id/icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon"
+        style="@style/main_icon_style" />
+
+    <TextView
+        android:id="@+id/name"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon"
+        style="@style/SalusLink_style" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:hint="@string/phone_hint"
+        android:inputType="phone"
+        android:layout_marginTop="@dimen/super_large_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:ignore="RtlSymmetry"
+        style="@style/registration_edit_text_style" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_marginTop="@dimen/large_margin_top"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone"
+        tools:ignore="RtlSymmetry"
+        style="@style/registration_edit_text_style"/>
+
+    <ImageButton
+        android:id="@+id/EnterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        style="@style/registration_button_style" />
+
+    <TextView
+        android:id="@+id/EnterText"
+        android:text="@string/enter_button"
+        app:layout_constraintBottom_toBottomOf="@+id/EnterButton"
+        app:layout_constraintEnd_toEndOf="@+id/EnterButton"
+        app:layout_constraintStart_toStartOf="@+id/EnterButton"
+        app:layout_constraintTop_toTopOf="@+id/EnterButton"
+        style="@style/registration_button_text_style" />
+
+    <TextView
+        android:id="@+id/registration_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin_top"
+        android:text="@string/registration"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EnterText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
