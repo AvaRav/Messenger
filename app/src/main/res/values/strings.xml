@@ -16,4 +16,14 @@
     <string name="password_hint">Пароль</string>
     <string name="enter_button">Войти</string>
     <string name="registration">Регистрация</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="re_passport">Повторите пароль</string>
+    <string name="subname_hint">Фамилия</string>
+    <string name="name_hint">Имя</string>
+    <string name="specialization_hint">Специализация</string>
+    <string name="work_hint">Место работы</string>
+    <string name="Further">Далее</string>
+    <string name="registration_button">Регистрация</string>
 </resources>

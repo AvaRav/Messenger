@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:id="@+id/welcome"
+        android:textSize="@dimen/registration_text_size"
+        style="@style/SalusLink_style"
+        android:text="@string/welcome_to"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/SalusLink_style"
+        android:layout_marginTop="@dimen/little_margin_top"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
+    <EditText
+        android:id="@+id/reg_subname"
+        style="@style/registration_edit_text_style"
+        android:layout_marginTop="@dimen/max_large_margin_top"
+        android:hint="@string/subname_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/reg_name"
+        android:layout_marginTop="@dimen/large_margin_top"
+        android:hint="@string/name_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_subname"
+        tools:ignore="RtlSymmetry"
+        style="@style/registration_edit_text_style"/>
+
+    <EditText
+        android:id="@+id/reg_specialization"
+        android:layout_marginTop="@dimen/large_margin_top"
+        android:hint="@string/specialization_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_name"
+        tools:ignore="RtlSymmetry"
+        style="@style/registration_edit_text_style"/>
+
+    <EditText
+        android:id="@+id/reg_work"
+        android:layout_marginTop="@dimen/large_margin_top"
+        android:hint="@string/work_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_specialization"
+        tools:ignore="RtlSymmetry"
+        style="@style/registration_edit_text_style"/>
+
+    <ImageButton
+        android:id="@+id/RegistrationButton"
+        android:layout_marginBottom="@dimen/default_margin_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/registration_button_style" />
+
+    <TextView
+        android:id="@+id/EnterText"
+        android:text="@string/registration_button"
+        app:layout_constraintBottom_toBottomOf="@+id/RegistrationButton"
+        app:layout_constraintEnd_toEndOf="@+id/RegistrationButton"
+        app:layout_constraintStart_toStartOf="@+id/RegistrationButton"
+        app:layout_constraintTop_toTopOf="@+id/RegistrationButton"
+        style="@style/registration_button_text_style" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
