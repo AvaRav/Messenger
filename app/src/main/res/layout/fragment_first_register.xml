@@ -30,7 +30,6 @@
         style="@style/registration_edit_text_style"
         android:layout_marginTop="@dimen/max_large_margin_top"
         android:hint="@string/phone_hint"
-        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +60,7 @@
 
     <ImageButton
         android:id="@+id/FurtherButton"
+        android:contentDescription="Кнопка регистрации"
         android:layout_marginBottom="@dimen/default_margin_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

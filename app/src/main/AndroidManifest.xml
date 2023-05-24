@@ -13,7 +13,7 @@
         android:theme="@style/Theme.SalusLink"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

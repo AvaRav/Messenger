@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#DDFFF7</color>
     <color name="colorPrimaryVariant">#00FFB6</color>
+    <color name="colorAccent">#015E6E</color>
     <color name="colorPressedButton">#84E4DC</color>
     <color name="statusBarColor">#80F8EA</color>
     <color name="colorFocusedText">#0A875A</color>
