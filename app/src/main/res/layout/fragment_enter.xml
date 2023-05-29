@@ -31,9 +31,8 @@
         style="@style/SalusLink_style" />
 
     <EditText
-        android:id="@+id/phone"
-        android:hint="@string/phone_hint"
-        android:inputType="phone"
+        android:id="@+id/email"
+        android:hint="@string/email_hint"
         android:layout_marginTop="@dimen/super_large_margin_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +47,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone"
+        app:layout_constraintTop_toBottomOf="@+id/email"
         tools:ignore="RtlSymmetry"
         style="@style/registration_edit_text_style"/>
 

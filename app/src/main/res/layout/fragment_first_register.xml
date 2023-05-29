@@ -26,10 +26,10 @@
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
     <EditText
-        android:id="@+id/reg_phone"
+        android:id="@+id/reg_email"
         style="@style/registration_edit_text_style"
         android:layout_marginTop="@dimen/max_large_margin_top"
-        android:hint="@string/phone_hint"
+        android:hint="@string/email_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_phone"
+        app:layout_constraintTop_toBottomOf="@+id/reg_email"
         tools:ignore="RtlSymmetry"
         style="@style/registration_edit_text_style"/>
 

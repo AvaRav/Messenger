@@ -12,7 +12,7 @@
     <string name="additional_change_photo">Нажмите, чтобы изменить фотографию</string>
     <string name="change_photo">Выбрать фото</string>
     <string name="settings_menu_exit">Выйти</string>
-    <string name="phone_hint">Телефон</string>
+    <string name="email_hint">Почта</string>
     <string name="password_hint">Пароль</string>
     <string name="enter_button">Войти</string>
     <string name="registration">Регистрация</string>

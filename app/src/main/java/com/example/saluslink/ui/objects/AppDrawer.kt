@@ -4,6 +4,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.saluslink.R
+import com.example.saluslink.ui.fragments.MessageFragment
 import com.example.saluslink.ui.fragments.SettingsFragment
 import com.example.saluslink.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader
@@ -70,6 +71,7 @@ class AppDrawer (val mainActivity: AppCompatActivity,val toolbar: Toolbar) {
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
                     when(position){
+                        1 -> mainActivity.replaceFragment(MessageFragment())
                         11 -> mainActivity.replaceFragment(SettingsFragment())
                     }
                     return false

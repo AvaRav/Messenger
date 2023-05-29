@@ -8,6 +8,8 @@ import com.example.saluslink.activities.RegisterActivity
 import com.example.saluslink.databinding.ActivityMainBinding
 import com.example.saluslink.ui.fragments.MessageFragment
 import com.example.saluslink.ui.objects.AppDrawer
+import com.example.saluslink.utilits.auth
+import com.example.saluslink.utilits.initFirebase
 import com.example.saluslink.utilits.replaceActivity
 import com.example.saluslink.utilits.replaceFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mAppDrawer: AppDrawer
     private lateinit var mToolbar: Toolbar
-    private lateinit var mAuth:FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,10 +33,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
-        if (mAuth.currentUser != null) {
+        if (auth.currentUser != null) {
             setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            replaceFragment(MessageFragment())
+            replaceFragment(MessageFragment(), false)
         } else {
             replaceActivity(RegisterActivity())
         }
@@ -43,6 +45,6 @@ class MainActivity : AppCompatActivity() {
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
-        mAuth = FirebaseAuth.getInstance()
+        initFirebase()
     }
 }

@@ -88,40 +88,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_btn_change_number_phone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_btn_change_photo"
-        style="@style/settings_button_style">
-
-        <TextView
-            android:id="@+id/settings_phone_number"
-            android:text="@string/default_number"
-            app:layout_constraintTop_toTopOf="@id/settings_btn_change_number_phone"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/normal_text_style" />
-
-        <TextView
-            android:id="@+id/settings_label_phone_number"
-            android:text="@string/settings_label_change_number"
-            app:layout_constraintTop_toBottomOf="@id/settings_phone_number"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/additional_text_style" />
-
-        <View
-            app:layout_constraintTop_toBottomOf="@id/settings_label_phone_number"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            style="@style/separator_style" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_btn_change_fio"
         style="@style/settings_button_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_btn_change_number_phone">
+        app:layout_constraintTop_toBottomOf="@+id/settings_btn_change_photo">
 
         <TextView
             android:id="@+id/settings_fio"

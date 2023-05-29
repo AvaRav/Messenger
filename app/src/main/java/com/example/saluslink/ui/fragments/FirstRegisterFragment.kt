@@ -1,59 +1,76 @@
 package com.example.saluslink.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.saluslink.R
-import com.example.saluslink.utilits.replaceFragment
-import com.example.saluslink.utilits.showToast
+import com.example.saluslink.utilits.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class FirstRegisterFragment : Fragment(R.layout.fragment_first_register) {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    lateinit var password: EditText
+    lateinit var email: EditText
+    lateinit var resume: ImageButton
+    lateinit var checkPassword: EditText
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onStart() {
+        super.onStart()
 
-        val email = requireView().findViewById<EditText>(R.id.reg_phone)
-        val password = requireView().findViewById<EditText>(R.id.reg_password)
-        val register = requireView().findViewById<ImageButton>(R.id.FurtherButton)
+        email = requireView().findViewById(R.id.reg_email)
+        password = requireView().findViewById(R.id.reg_password)
+        resume = requireView().findViewById(R.id.FurtherButton)
+        checkPassword = requireView().findViewById(R.id.re_password)
 
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance().reference
 
-        register.setOnClickListener {
-            val email = email.text.toString().trim()
-            val password = password.text.toString().trim()
+        email.setOnClickListener {
+            showToast("Формат адреса электронной почты: user@gmail.com")
+        }
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
+        password.setOnClickListener {
+            showToast("Пароль должен содержать не менее 6 символов!")
+        }
 
-                            database.child("Users").child("email").setValue(email)
-                            database.child("Users").child("password").setValue(password)
-                                .addOnCompleteListener { databaseTask ->
-                                    if (databaseTask.isSuccessful) {
-                                        replaceFragment(SecondRegisterFragment(),false)
-                                    } else {
-                                        showToast("Ошибка!")
-                                    }
-                                }
-                        } else {
-                            showToast("Аккаунт уже существует!")
+        resume.setOnClickListener {
+            signUser()
+        }
+    }
+
+    private fun signUser() {
+        val email = email.text.toString().trim()
+        val password = password.text.toString().trim()
+        val checkPassword = checkPassword.text.toString().trim()
+
+        if (email.isEmpty() || password.isEmpty() || checkPassword.isEmpty())
+            showToast("Введите данные для регистрации!")
+
+
+        if (password != checkPassword)
+            showToast("Пароли не совпадают!")
+
+        if (email.isNotEmpty() && password.isNotEmpty() && password == checkPassword)
+        {
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        val db = FirebaseFirestore.getInstance()
+                        val currentUser = FirebaseAuth.getInstance().currentUser
+                        currentUser?.let { user ->
+                            val userDocRef = db.collection("users").document(user.uid)
+                            val userData = hashMapOf<String, Any>(
+                                "email" to email,
+                                "password" to password
+                            )
+                            userDocRef.set(userData)
                         }
+                        replaceFragment(SecondRegisterFragment(), false)
+                    } else {
+                        showToast("Ошибка регистрации!")
                     }
-            } else {
-                showToast("Введите данные для регистрации!")
-            }
+                }
         }
     }
 }
