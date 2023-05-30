@@ -45,6 +45,9 @@ class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {
         val special = special.text.toString().trim()
         val workplace = workplace.text.toString().trim()
 
+        val education = getString(R.string.not_specified)
+        val experience = getString(R.string.not_specified)
+
         if (surname.isEmpty() || name.isEmpty() || special.isEmpty() || workplace.isEmpty())
             showToast("Введите данные для регистрации!")
         else {
@@ -56,12 +59,14 @@ class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {
                     "surname" to surname,
                     "name" to name,
                     "specialization" to special,
-                    "workplace" to workplace
+                    "workplace" to workplace,
+                    "education" to education,
+                    "experience" to experience,
+
                 )
                 userDocRef.update(additionalData)
                     .addOnSuccessListener {
 
-                        //добавленно мной
                         ref_database_root.child("users").child(user.uid).updateChildren(additionalData)
                             .addOnCompleteListener { task2 ->
                                 if (task2.isSuccessful) {
@@ -69,8 +74,6 @@ class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {
                                     showToast("Поздравляем с успешной регистрацией!")
                                 } else showToast(task2.exception?.message.toString())
                             }
-                        //
-
 
                     }
                     .addOnFailureListener {

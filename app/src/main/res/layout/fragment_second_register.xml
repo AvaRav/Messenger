@@ -29,7 +29,7 @@
         android:id="@+id/reg_subname"
         style="@style/registration_edit_text_style"
         android:layout_marginTop="@dimen/max_large_margin_top"
-        android:hint="@string/subname_hint"
+        android:hint="@string/surname_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"

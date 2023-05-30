@@ -34,6 +34,7 @@
     <dimen name="registration_button_width">265dp</dimen>
     <dimen name="registration_button_height">56dp</dimen>
     <dimen name="default_margin_bottom">80dp</dimen>
+    <dimen name="large_margin_bottom">120dp</dimen>
 
 
 </resources>

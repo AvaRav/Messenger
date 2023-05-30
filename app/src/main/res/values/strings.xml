@@ -7,7 +7,7 @@
     <string name="settings_account">Аккаунт</string>
     <string name="settings_label_change_number">Нажмите чтобы изменить номер телефона</string>
     <string name="change_fio">Нажмите, чтобы изменить данные</string>
-    <string name="settings_about_me">Напишите что-нибудь о себе</string>
+    <string name="settings_about_me">Заполните данные о себе</string>
     <string name="settings_about">О себе</string>
     <string name="additional_change_photo">Нажмите, чтобы изменить фотографию</string>
     <string name="change_photo">Выбрать фото</string>
@@ -20,10 +20,20 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_to">Welcome to</string>
     <string name="re_passport">Повторите пароль</string>
-    <string name="subname_hint">Фамилия</string>
+    <string name="surname_hint">Фамилия</string>
     <string name="name_hint">Имя</string>
     <string name="specialization_hint">Специализация</string>
     <string name="work_hint">Место работы</string>
     <string name="Further">Далее</string>
     <string name="registration_button">Регистрация</string>
+    <string name="change_name_hint">Введите ваше имя</string>
+    <string name="change_surname_hint">Введите вашу фамилию</string>
+    <string name="accept_text">Принять</string>
+    <string name="not_specified">Не указано</string>
+    <string name="fill_in_all_fields">Заполните все поля!</string>
+    <string name="change_specialization_hint">Специализация</string>
+    <string name="change_education_hint">Образование</string>
+    <string name="change_working_hint">Место работы</string>
+    <string name="change_experience_hint">Опыт работы</string>
+    <string name="enter_data_settings">Введите данные в поля ниже:</string>
 </resources>
