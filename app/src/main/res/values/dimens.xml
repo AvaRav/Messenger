@@ -35,6 +35,15 @@
     <dimen name="registration_button_height">56dp</dimen>
     <dimen name="default_margin_bottom">80dp</dimen>
     <dimen name="large_margin_bottom">120dp</dimen>
+    <dimen name="profile_height">120dp</dimen>
+    <dimen name="width_photo_profile">160dp</dimen>
+    <dimen name="profile_margin_top">30dp</dimen>
+    <dimen name="profile_margin_start">25dp</dimen>
+    <dimen name="text_size_profile_fio">30sp</dimen>
+    <dimen name="default_profile_fio_start_margin">10dp</dimen>
+    <dimen name="layout_margin_profile">50dp</dimen>
+    <dimen name="profile_default_image">60dp</dimen>
+    <dimen name="indent_profile">35dp</dimen>
 
 
 </resources>

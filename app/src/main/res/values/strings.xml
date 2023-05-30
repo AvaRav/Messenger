@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">SalusLink</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="default_user_name">Name Subname</string>
+    <string name="default_user_name">Имя</string>
+    <string name="default_user_surname">Фамилия</string>
     <string name="default_number">+79009182391</string>
     <string name="default_status_online">В сети</string>
     <string name="settings_account">Аккаунт</string>
@@ -36,4 +37,6 @@
     <string name="change_working_hint">Место работы</string>
     <string name="change_experience_hint">Опыт работы</string>
     <string name="enter_data_settings">Введите данные в поля ниже:</string>
+    <string name="about_me_text">Обо мне</string>
+    <string name="default_profile_about">Не указано</string>
 </resources>

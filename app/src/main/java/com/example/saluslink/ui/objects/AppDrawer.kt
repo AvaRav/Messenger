@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.saluslink.R
 import com.example.saluslink.ui.fragments.MessageFragment
+import com.example.saluslink.ui.fragments.ProfileFragment
 import com.example.saluslink.ui.fragments.SettingsFragment
 import com.example.saluslink.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader
@@ -36,12 +37,12 @@ class AppDrawer (val mainActivity: AppCompatActivity,val toolbar: Toolbar) {
             .addDrawerItems(
                 PrimaryDrawerItem()
                     .withIdentifier(100)
-                    .withName("Сообщения")
+                    .withName("Профиль")
                     .withSelectable(false),
                 DividerDrawerItem(),
                 PrimaryDrawerItem()
                     .withIdentifier(101)
-                    .withName("Поиск")
+                    .withName("Сообщения")
                     .withSelectable(false),
                 DividerDrawerItem(),
                 PrimaryDrawerItem()
@@ -71,7 +72,8 @@ class AppDrawer (val mainActivity: AppCompatActivity,val toolbar: Toolbar) {
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
                     when(position){
-                        1 -> mainActivity.replaceFragment(MessageFragment())
+                        1 -> mainActivity.replaceFragment(ProfileFragment())
+                        3 -> mainActivity.replaceFragment(MessageFragment())
                         11 -> mainActivity.replaceFragment(SettingsFragment())
                     }
                     return false
