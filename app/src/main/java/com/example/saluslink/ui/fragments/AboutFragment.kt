@@ -8,20 +8,31 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.saluslink.R
-import com.example.saluslink.utilits.ref_database_root
-import com.example.saluslink.utilits.showToast
-import com.example.saluslink.utilits.uid
-import com.example.saluslink.utilits.user
+import com.example.saluslink.utilits.*
 
 class AboutFragment : Fragment(R.layout.fragment_about) {
     override fun onResume() {
         super.onResume()
 
+        val specialization = requireView().findViewById<EditText>(R.id.settings_input_specialization)
+        val education = requireView().findViewById<EditText>(R.id.settings_input_education)
+        val workspace = requireView().findViewById<EditText>(R.id.settings_input_working)
+        val experience = requireView().findViewById<EditText>(R.id.settings_input_experience)
         val ChangeAboutButton = view?.findViewById<ImageButton>(R.id.ChangeAboutButton)
+
+        specialization.setText(user.specialization)
+        education.setText(user.education)
+        workspace.setText(user.workplace)
+        experience.setText(user.experience)
 
         ChangeAboutButton?.setOnClickListener {
             changeAbout()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        APP_ACTIVITY.hideKeyboard()
     }
 
     private fun changeAbout() {

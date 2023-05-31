@@ -8,20 +8,27 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.saluslink.R
-import com.example.saluslink.utilits.ref_database_root
-import com.example.saluslink.utilits.showToast
-import com.example.saluslink.utilits.uid
-import com.example.saluslink.utilits.user
+import com.example.saluslink.utilits.*
 
 class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
 
+        val name = requireView().findViewById<EditText>(R.id.settings_input_name)
+        val surname = requireView().findViewById<EditText>(R.id.settings_input_surname)
         val changeNameSurnameButton = view?.findViewById<ImageButton>(R.id.ChangeSurnameNameButton)
+
+        name.setText(user.name)
+        surname.setText(user.surname)
 
         changeNameSurnameButton?.setOnClickListener{
             changeNameSurname()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        APP_ACTIVITY.hideKeyboard()
     }
 
     private fun changeNameSurname() {

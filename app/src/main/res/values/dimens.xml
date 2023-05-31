@@ -39,7 +39,7 @@
     <dimen name="width_photo_profile">160dp</dimen>
     <dimen name="profile_margin_top">30dp</dimen>
     <dimen name="profile_margin_start">25dp</dimen>
-    <dimen name="text_size_profile_fio">30sp</dimen>
+    <dimen name="text_size_profile_fio">28sp</dimen>
     <dimen name="default_profile_fio_start_margin">10dp</dimen>
     <dimen name="layout_margin_profile">50dp</dimen>
     <dimen name="profile_default_image">60dp</dimen>
