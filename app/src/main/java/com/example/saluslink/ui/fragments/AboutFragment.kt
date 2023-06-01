@@ -32,7 +32,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
     override fun onStop() {
         super.onStop()
-        APP_ACTIVITY.hideKeyboard()
+        hideKeyboard()
     }
 
     private fun changeAbout() {

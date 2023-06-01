@@ -21,20 +21,19 @@ import com.theartofdev.edmodo.cropper.CropImage
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mAppDrawer: AppDrawer
+    lateinit var mAppDrawer: AppDrawer
     private lateinit var mToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-    }
-
-    override fun onStart() {
-        super.onStart()
         APP_ACTIVITY = this
-        initFields()
-        initFunc()
+        initFirebase()
+        initUser{
+            initFields()
+            initFunc()
+        }
     }
 
     private fun initFunc() {
@@ -47,36 +46,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initUser() {
-        ref_database_root.child("users").child(uid)
-            .addListenerForSingleValueEvent(AppValueEventListener {
-                user = it.getValue(User::class.java) ?: User()
-            })
-    }
 
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
-        initFirebase()
-        initUser()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
-            val uri = CropImage.getActivityResult(data).uri
-            val path = ref_storage_root.child(folder_profile_image)
-                .child(uid)
-            path.putFile(uri).addOnCompleteListener{
-                if (it.isSuccessful){
-                    showToast("Успешно!")
-                }
-            }
-        }
+    override fun onStart() {
+        super.onStart()
+        AppStates.updateState(AppStates.ONLINE)
     }
 
-    fun hideKeyboard(){
-        val imm:InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
+    override fun onStop() {
+        super.onStop()
+        AppStates.updateState(AppStates.OFFLINE)
     }
 }

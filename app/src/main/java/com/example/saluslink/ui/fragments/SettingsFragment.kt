@@ -5,10 +5,8 @@ import android.content.Intent
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.saluslink.MainActivity
 import com.example.saluslink.R
 import com.example.saluslink.activities.RegisterActivity
 import com.example.saluslink.utilits.*
@@ -24,6 +22,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         val name = requireView().findViewById<TextView>(R.id.settings_name)
         val change_name = requireView().findViewById<TextView>(R.id.settings_fio)
         val status = requireView().findViewById<TextView>(R.id.settings_text_online_offline)
+        val photo = requireView().findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.settings_user_photo)
         val changeNameButton = view?.findViewById<ConstraintLayout>(R.id.settings_btn_change_fio)
         val changeAboutButton = view?.findViewById<ConstraintLayout>(R.id.settings_btn_change_about)
         val ChangePhotoButton = requireView().findViewById<ConstraintLayout>(R.id.settings_btn_change_photo)
@@ -31,6 +30,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         name.text = user.name
         change_name.text = user.name
         status.text = user.status
+        photo.downloadAndSetImage(user.photoUrl)
 
         ChangePhotoButton?.setOnClickListener{
             changeUserPhoto()
@@ -50,7 +50,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             .setAspectRatio(1,1)
             .setRequestedSize(600, 600)
             .setCropShape(CropImageView.CropShape.OVAL)
-            .start(APP_ACTIVITY)
+            .start(APP_ACTIVITY, this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -65,5 +65,26 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             }
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            val uri = CropImage.getActivityResult(data).uri
+            val path = ref_storage_root.child(folder_profile_image).child(uid)
+            val photo = requireView().findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.settings_user_photo)
+
+            putImageStorage(uri, path){
+                getUrlFromStorage(path){
+                    putUrlToDatabase(it){
+                        photo.downloadAndSetImage(it)
+                        user.photoUrl = it
+                        APP_ACTIVITY.mAppDrawer.updateHeader()
+                    }
+                }
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
 
     override fun onStop() {
         super.onStop()
-        APP_ACTIVITY.hideKeyboard()
+        hideKeyboard()
     }
 
     private fun changeNameSurname() {
@@ -48,6 +48,7 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
             ref_database_root.child("users").child(uid).child("surname").setValue(surname).addOnCompleteListener {
                 if (it.isSuccessful){
                     user.surname = surname
+                    APP_ACTIVITY.mAppDrawer.updateHeader()
                     fragmentManager?.popBackStack()
                 }
             }

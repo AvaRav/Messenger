@@ -9,5 +9,5 @@ data class User(
     var workplace: String = "",
     var education: String = "",
     var experience: String = "",
-    var photoUrl: String = ""
+    var photoUrl: String = "empty"
 )
