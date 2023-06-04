@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_reg"
+    app:startDestination="@id/enterFragment">
+    <fragment
+        android:id="@+id/enterFragment"
+        android:name="com.example.saluslink.ui.fragments.EnterFragment"
+        android:label="fragment_enter"
+        tools:layout="@layout/fragment_enter" >
+        <action
+            android:id="@+id/action_enterFragment_to_firstRegisterFragment4"
+            app:destination="@id/firstRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstRegisterFragment"
+        android:name="com.example.saluslink.ui.fragments.FirstRegisterFragment"
+        android:label="fragment_first_register"
+        tools:layout="@layout/fragment_first_register" >
+        <action
+            android:id="@+id/action_firstRegisterFragment_to_secondRegisterFragment"
+            app:destination="@id/secondRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondRegisterFragment"
+        android:name="com.example.saluslink.ui.fragments.SecondRegisterFragment"
+        android:label="fragment_second_register"
+        tools:layout="@layout/fragment_second_register" >
+        <action
+            android:id="@+id/action_secondRegisterFragment_to_enterFragment"
+            app:destination="@id/enterFragment" />
+    </fragment>
+
+</navigation>

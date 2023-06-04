@@ -1,9 +1,13 @@
 package com.example.saluslink.ui.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.navigation.fragment.findNavController
 import com.example.saluslink.R
 import com.example.saluslink.utilits.*
 import com.google.firebase.auth.FirebaseAuth
@@ -11,10 +15,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirstRegisterFragment : Fragment(R.layout.fragment_first_register) {
-    lateinit var password: EditText
-    lateinit var email: EditText
-    lateinit var resume: ImageButton
-    lateinit var checkPassword: EditText
+    private lateinit var password: EditText
+    private lateinit var email: EditText
+    private lateinit var resume: ImageButton
+    private lateinit var checkPassword: EditText
 
     override fun onStart() {
         super.onStart()
@@ -66,7 +70,7 @@ class FirstRegisterFragment : Fragment(R.layout.fragment_first_register) {
                             )
                             userDocRef.set(userData)
                         }
-                        replaceFragment(SecondRegisterFragment(), false)
+                        findNavController().navigate(R.id.secondRegisterFragment)
                     } else {
                         showToast("Ошибка регистрации!")
                     }

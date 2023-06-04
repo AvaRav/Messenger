@@ -39,4 +39,5 @@
     <string name="enter_data_settings">Введите данные в поля ниже:</string>
     <string name="about_me_text">Обо мне</string>
     <string name="default_profile_about">Не указано</string>
+    <string name="search">Поиск</string>
 </resources>

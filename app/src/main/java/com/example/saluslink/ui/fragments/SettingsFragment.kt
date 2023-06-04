@@ -28,7 +28,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         val ChangePhotoButton = requireView().findViewById<ConstraintLayout>(R.id.settings_btn_change_photo)
 
         name.text = user.name
-        change_name.text = user.name
+        change_name.text = user.name + " " + user.surname
         status.text = user.status
         photo.downloadAndSetImage(user.photoUrl)
 
@@ -60,6 +60,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings_menu_exit -> {
+                AppStates.updateState(uid, AppStates.OFFLINE)
+
                 auth.signOut()
                 (APP_ACTIVITY).replaceActivity(RegisterActivity())
             }

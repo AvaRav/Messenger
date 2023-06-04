@@ -5,10 +5,14 @@ enum class AppStates(val state:String) {
     OFFLINE("был недавно"),
     TYPING("печатает...");
 
-    companion object{
-        fun updateState(appStates: AppStates){
-            ref_database_root.child("users").child(uid).child("status").setValue(appStates.state)
-                .addOnSuccessListener { user.status = appStates.state }
+    companion object {
+        fun updateState(uid: String, appStates: AppStates) {
+            val userRef = ref_database_root.child("users").child(uid)
+            userRef.child("status").setValue(appStates.state)
+                .addOnSuccessListener {
+                    userRef.child("status").setValue(appStates.state)
+                }
         }
     }
 }
+

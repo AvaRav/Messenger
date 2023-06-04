@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.navigation.fragment.findNavController
 import com.example.saluslink.R
 import com.example.saluslink.utilits.auth
 import com.example.saluslink.utilits.ref_database_root
@@ -20,11 +21,12 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {
-    lateinit var surname: EditText
-    lateinit var name: EditText
-    lateinit var special: EditText
-    lateinit var workplace: EditText
-    lateinit var register: ImageButton
+    private lateinit var surname: EditText
+    private lateinit var name: EditText
+    private lateinit var special: EditText
+    private lateinit var workplace: EditText
+    private lateinit var register: ImageButton
+
     override fun onStart() {
         super.onStart()
 
@@ -70,7 +72,7 @@ class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {
                         ref_database_root.child("users").child(user.uid).updateChildren(additionalData)
                             .addOnCompleteListener { task2 ->
                                 if (task2.isSuccessful) {
-                                    replaceFragment(EnterFragment(), false)
+                                    findNavController().navigate(R.id.enterFragment)
                                     showToast("Поздравляем с успешной регистрацией!")
                                 } else showToast(task2.exception?.message.toString())
                             }

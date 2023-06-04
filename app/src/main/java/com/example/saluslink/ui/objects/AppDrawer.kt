@@ -7,9 +7,11 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.saluslink.R
+import com.example.saluslink.ui.fragments.FriendsFragment
 import com.example.saluslink.ui.fragments.MessageFragment
 import com.example.saluslink.ui.fragments.ProfileFragment
 import com.example.saluslink.ui.fragments.SettingsFragment
+import com.example.saluslink.utilits.APP_ACTIVITY
 import com.example.saluslink.utilits.downloadAndSetImage
 import com.example.saluslink.utilits.replaceFragment
 import com.example.saluslink.utilits.user
@@ -24,7 +26,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 
-class AppDrawer (val mainActivity: AppCompatActivity,val toolbar: Toolbar) {
+class AppDrawer () {
     private lateinit var mDrawer: Drawer
     private lateinit var mHeader: AccountHeader
     private lateinit var mCurrentProfile: ProfileDrawerItem
@@ -37,8 +39,8 @@ class AppDrawer (val mainActivity: AppCompatActivity,val toolbar: Toolbar) {
 
     private fun createDrawer() {
         mDrawer = DrawerBuilder()
-            .withActivity(mainActivity)
-            .withToolbar(toolbar)
+            .withActivity(APP_ACTIVITY)
+            .withToolbar(APP_ACTIVITY.mToolbar)
             .withActionBarDrawerToggle(true)
             .withSliderBackgroundDrawableRes(R.drawable.menu_background)
             .withSelectedItem(-1)
@@ -80,14 +82,19 @@ class AppDrawer (val mainActivity: AppCompatActivity,val toolbar: Toolbar) {
                     position: Int,
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
-                    when(position){
-                        1 -> mainActivity.replaceFragment(ProfileFragment())
-                        3 -> mainActivity.replaceFragment(MessageFragment())
-                        11 -> mainActivity.replaceFragment(SettingsFragment())
-                    }
+                    clickToItem(position)
                     return false
                 }
             }).build()
+    }
+
+    private fun clickToItem(position: Int){
+        when(position){
+            1 -> APP_ACTIVITY.replaceFragment(ProfileFragment())
+            3 -> APP_ACTIVITY.replaceFragment(MessageFragment())
+            7 -> APP_ACTIVITY.replaceFragment(FriendsFragment())
+            11 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
+        }
     }
 
     private fun createHeader() {
@@ -96,7 +103,7 @@ class AppDrawer (val mainActivity: AppCompatActivity,val toolbar: Toolbar) {
             .withIcon(user.photoUrl)
             .withIdentifier(200)
         mHeader = AccountHeaderBuilder()
-            .withActivity(mainActivity)
+            .withActivity(APP_ACTIVITY)
             .withHeaderBackground(R.drawable.header)
             .addProfiles(
                 mCurrentProfile

@@ -1,9 +1,15 @@
 package com.example.saluslink.ui.fragments
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.example.saluslink.MainActivity
 import com.example.saluslink.R
 import com.example.saluslink.activities.RegisterActivity
@@ -13,8 +19,9 @@ import com.example.saluslink.utilits.replaceFragment
 import com.example.saluslink.utilits.showToast
 
 class EnterFragment : Fragment(R.layout.fragment_enter) {
-    lateinit var password: EditText
-    lateinit var email: EditText
+    private lateinit var password: EditText
+    private lateinit var email: EditText
+
     override fun onStart() {
         super.onStart()
 
@@ -33,13 +40,13 @@ class EnterFragment : Fragment(R.layout.fragment_enter) {
     }
 
     private fun sendCode() {
-        var email = email.text.toString().trim()
-        var password = password.text.toString().trim()
+        var emailInput = email.text.toString().trim()
+        var passwordInput = password.text.toString().trim()
 
-        if (email.isEmpty() or password.isEmpty()){
+        if (emailInput.isEmpty() or passwordInput.isEmpty()){
             showToast("Введите адрес почты и пароль!")
         } else {
-            auth.signInWithEmailAndPassword(email, password)
+            auth.signInWithEmailAndPassword(emailInput, passwordInput)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     (activity as RegisterActivity).replaceActivity(MainActivity())
@@ -52,8 +59,7 @@ class EnterFragment : Fragment(R.layout.fragment_enter) {
     }
 
     private fun register() {
-        replaceFragment(FirstRegisterFragment(),false)
+        findNavController().navigate(R.id.firstRegisterFragment)
     }
-
-
 }
+

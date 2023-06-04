@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.saluslink.activities.RegisterActivity
 import com.example.saluslink.databinding.ActivityMainBinding
 import com.example.saluslink.models.User
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
     lateinit var mAppDrawer: AppDrawer
-    private lateinit var mToolbar: Toolbar
+    lateinit var mToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,16 +51,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
-        mAppDrawer = AppDrawer(this, mToolbar)
+        mAppDrawer = AppDrawer()
     }
 
     override fun onStart() {
         super.onStart()
-        AppStates.updateState(AppStates.ONLINE)
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            AppStates.updateState(currentUser.uid, AppStates.ONLINE)
+        }
     }
 
     override fun onStop() {
         super.onStop()
-        AppStates.updateState(AppStates.OFFLINE)
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            AppStates.updateState(currentUser.uid, AppStates.OFFLINE)
+        }
     }
 }
