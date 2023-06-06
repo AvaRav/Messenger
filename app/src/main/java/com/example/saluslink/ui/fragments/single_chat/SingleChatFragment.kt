@@ -1,16 +1,14 @@
-package com.example.saluslink.ui.fragments
+package com.example.saluslink.ui.fragments.single_chat
 
-import android.graphics.Color
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
 import com.example.saluslink.models.User
+import com.example.saluslink.ui.fragments.BaseFragment
 import com.example.saluslink.utilits.*
 import com.google.firebase.database.DatabaseReference
 
@@ -20,9 +18,34 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
     private lateinit var mReceivingUser: User
     private lateinit var mHeaderInfo: View
     private lateinit var mRefUser: DatabaseReference
+    private lateinit var mRefMessages: DatabaseReference
+    private lateinit var mAdapter: SingleChatAdapter
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mMessagesListener: AppValueEventListener
+    private var mListMessages = emptyList<CommonModel>()
 
     override fun onResume() {
         super.onResume()
+        initHeader()
+        initRecycleView()
+    }
+
+    private fun initRecycleView() {
+        mRecyclerView = requireView().findViewById(R.id.chat_recycler_view)
+        mAdapter = SingleChatAdapter()
+        mRefMessages = ref_database_root.child("messages")
+            .child(uid)
+            .child(model.id)
+        mRecyclerView.adapter = mAdapter
+        mMessagesListener = AppValueEventListener { dataSnapshot ->
+            mListMessages = dataSnapshot.children.map { it.getCommonModel() }
+            mAdapter.setList(mListMessages)
+            mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+        }
+        mRefMessages.addValueEventListener(mMessagesListener)
+    }
+
+    private fun initHeader() {
         mHeaderInfo = requireView().findViewById(R.id.message_header_block)
         mListenerInfoHeader = AppValueEventListener {
             mReceivingUser = it.getUserModel()
@@ -32,10 +55,11 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         mRefUser.addValueEventListener(mListenerInfoHeader)
 
         requireView().findViewById<ImageView>(R.id.chat_btn_send_message).setOnClickListener {
-            val message = requireView().findViewById<EditText>(R.id.chat_input_message).text.toString()
-            if (message.isEmpty()){
+            val message =
+                requireView().findViewById<EditText>(R.id.chat_input_message).text.toString()
+            if (message.isEmpty()) {
                 showToast("Введите сообщение")
-            } else sendMessage(message, model.id, "text"){
+            } else sendMessage(message, model.id, "text") {
                 requireView().findViewById<EditText>(R.id.chat_input_message).setText("")
             }
         }
@@ -50,5 +74,6 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
     override fun onPause() {
         super.onPause()
         mRefUser.removeEventListener(mListenerInfoHeader)
+        mRefMessages.removeEventListener(mMessagesListener)
     }
 }

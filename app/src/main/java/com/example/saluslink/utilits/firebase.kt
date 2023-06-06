@@ -76,5 +76,8 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
 }
 
 
+fun DataSnapshot.getCommonModel(): CommonModel =
+    this.getValue(CommonModel::class.java) ?: CommonModel()
+
 fun DataSnapshot.getUserModel(): User =
     this.getValue(User::class.java) ?: User()

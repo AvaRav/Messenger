@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.saluslink.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
@@ -47,4 +49,10 @@ fun ImageView.downloadAndSetImage(url:String){
         .load(url)
         .placeholder(R.drawable.doctor)
         .into(this)
+}
+
+fun String.asTime(): String {
+    val time = Date(this.toLong())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return timeFormat.format(time)
 }

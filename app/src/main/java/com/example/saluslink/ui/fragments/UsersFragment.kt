@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
+import com.example.saluslink.ui.fragments.single_chat.SingleChatFragment
 import com.example.saluslink.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
