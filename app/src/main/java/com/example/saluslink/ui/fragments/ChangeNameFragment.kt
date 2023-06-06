@@ -52,6 +52,14 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
                     fragmentManager?.popBackStack()
                 }
             }
+
+            ref_database_root.child("users").child(uid).child("fullname").setValue(name + " " + surname).addOnCompleteListener {
+                if (it.isSuccessful){
+                    user.fullname = name + " " + surname
+                    APP_ACTIVITY.mAppDrawer.updateHeader()
+                    fragmentManager?.popBackStack()
+                }
+            }
         }
     }
 }

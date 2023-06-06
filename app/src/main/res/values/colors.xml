@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#DDFFF7</color>
     <color name="colorPrimaryVariant">#00FFB6</color>
+    <color name="colorPrimaryVariantTwo">#C4FAFF</color>
     <color name="colorProfile">#95F6FF</color>
     <color name="colorProfileText">#054252</color>
     <color name="colorAccent">#015E6E</color>

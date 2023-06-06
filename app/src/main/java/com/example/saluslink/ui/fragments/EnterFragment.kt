@@ -13,10 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.saluslink.MainActivity
 import com.example.saluslink.R
 import com.example.saluslink.activities.RegisterActivity
-import com.example.saluslink.utilits.auth
-import com.example.saluslink.utilits.replaceActivity
-import com.example.saluslink.utilits.replaceFragment
-import com.example.saluslink.utilits.showToast
+import com.example.saluslink.utilits.*
 
 class EnterFragment : Fragment(R.layout.fragment_enter) {
     private lateinit var password: EditText

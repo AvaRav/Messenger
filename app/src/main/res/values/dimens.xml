@@ -44,6 +44,10 @@
     <dimen name="layout_margin_profile">50dp</dimen>
     <dimen name="profile_default_image">60dp</dimen>
     <dimen name="indent_profile">35dp</dimen>
+    <dimen name="users_profile_button_width">165dp</dimen>
+    <dimen name="users_profile_button_height">55dp</dimen>
+    <dimen name="message_image_size">50dp</dimen>
+    <dimen name="message_header_height">55dp</dimen>
 
 
 </resources>

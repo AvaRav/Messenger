@@ -5,9 +5,16 @@ data class CommonModel(
     var name: String = "",
     var status: String = "",
     var surname: String = "",
+    var fullname: String = "",
     var specialization: String = "",
     var workplace: String = "",
     var education: String = "",
     var experience: String = "",
-    var photoUrl: String = "empty"
-)
+    var photoUrl: String = "empty",
+
+    var text: String = "",
+    var type: String = "",
+    var from: String = "",
+    var timeStamp: String = "",
+
+    )

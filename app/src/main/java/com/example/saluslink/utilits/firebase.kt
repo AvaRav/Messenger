@@ -1,10 +1,14 @@
 package com.example.saluslink.utilits
 
 import android.net.Uri
+import com.example.saluslink.models.CommonModel
 import com.example.saluslink.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -49,3 +53,28 @@ inline fun initUser(crossinline function: () -> Unit) {
             function()
         })
 }
+
+fun sendMessage(message: String, receivingUserID: String, typeText: String, function: () -> Unit) {
+    val refDialogUser = "/messages/$uid/$receivingUserID"
+    val refDialogReceivingUser = "/messages/$receivingUserID/$uid"
+    val messageKey = ref_database_root.child(refDialogUser).push().key
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage["from"] = uid
+    mapMessage["type"] = typeText
+    mapMessage["text"] = message
+    mapMessage["timeStamp"] = ServerValue.TIMESTAMP
+
+    val mapDialog = hashMapOf<String, Any>()
+    mapDialog["$refDialogUser/$messageKey"] = mapMessage
+    mapDialog["$refDialogReceivingUser/$messageKey"] = mapMessage
+
+    ref_database_root
+        .updateChildren(mapDialog)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast("Не удалось отправить сообщение") }
+}
+
+
+fun DataSnapshot.getUserModel(): User =
+    this.getValue(User::class.java) ?: User()

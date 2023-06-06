@@ -4,10 +4,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.saluslink.R
-import com.example.saluslink.ui.fragments.FriendsFragment
+import com.example.saluslink.ui.fragments.UsersFragment
 import com.example.saluslink.ui.fragments.MessageFragment
 import com.example.saluslink.ui.fragments.ProfileFragment
 import com.example.saluslink.ui.fragments.SettingsFragment
@@ -63,7 +61,7 @@ class AppDrawer () {
                 DividerDrawerItem(),
                 PrimaryDrawerItem()
                     .withIdentifier(103)
-                    .withName("Друзья")
+                    .withName("Пользователи")
                     .withSelectable(false),
                 DividerDrawerItem(),
                 PrimaryDrawerItem()
@@ -92,7 +90,7 @@ class AppDrawer () {
         when(position){
             1 -> APP_ACTIVITY.replaceFragment(ProfileFragment())
             3 -> APP_ACTIVITY.replaceFragment(MessageFragment())
-            7 -> APP_ACTIVITY.replaceFragment(FriendsFragment())
+            7 -> APP_ACTIVITY.replaceFragment(UsersFragment())
             11 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
         }
     }

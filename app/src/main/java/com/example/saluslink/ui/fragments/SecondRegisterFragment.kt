@@ -9,10 +9,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.navigation.fragment.findNavController
 import com.example.saluslink.R
-import com.example.saluslink.utilits.auth
-import com.example.saluslink.utilits.ref_database_root
-import com.example.saluslink.utilits.replaceFragment
-import com.example.saluslink.utilits.showToast
+import com.example.saluslink.utilits.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -46,6 +43,7 @@ class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {
         val name = name.text.toString().trim()
         val special = special.text.toString().trim()
         val workplace = workplace.text.toString().trim()
+        var fullname = name + " " + surname
 
         val education = getString(R.string.not_specified)
         val experience = getString(R.string.not_specified)
@@ -58,8 +56,10 @@ class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {
             currentUser?.let { user ->
                 val userDocRef = db.collection("users").document(user.uid)
                 val additionalData = hashMapOf<String, Any>(
+                    "id" to user.uid,
                     "surname" to surname,
                     "name" to name,
+                    "fullname" to fullname,
                     "specialization" to special,
                     "workplace" to workplace,
                     "education" to education,
