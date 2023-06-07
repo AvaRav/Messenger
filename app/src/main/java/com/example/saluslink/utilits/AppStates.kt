@@ -2,7 +2,7 @@ package com.example.saluslink.utilits
 
 enum class AppStates(val state:String) {
     ONLINE("в сети"),
-    OFFLINE("был недавно"),
+    OFFLINE("не в сети"),
     TYPING("печатает...");
 
     companion object {

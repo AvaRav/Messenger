@@ -20,7 +20,7 @@
             android:id="@+id/chat_user_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Привет"
+            tools:text="Привет, я щас повешусь сколько можно отлавливать тут баги"
             android:textColor="@color/black"
             android:gravity="end"
             android:layout_marginEnd="@dimen/default_margin_top"
