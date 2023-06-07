@@ -6,7 +6,7 @@
     app:startDestination="@id/enterFragment">
     <fragment
         android:id="@+id/enterFragment"
-        android:name="com.example.saluslink.ui.fragments.EnterFragment"
+        android:name="com.example.saluslink.ui.fragments.register.EnterFragment"
         android:label="fragment_enter"
         tools:layout="@layout/fragment_enter" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstRegisterFragment"
-        android:name="com.example.saluslink.ui.fragments.FirstRegisterFragment"
+        android:name="com.example.saluslink.ui.fragments.register.FirstRegisterFragment"
         android:label="fragment_first_register"
         tools:layout="@layout/fragment_first_register" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondRegisterFragment"
-        android:name="com.example.saluslink.ui.fragments.SecondRegisterFragment"
+        android:name="com.example.saluslink.ui.fragments.register.SecondRegisterFragment"
         android:label="fragment_second_register"
         tools:layout="@layout/fragment_second_register" >
         <action

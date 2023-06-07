@@ -1,20 +1,12 @@
-package com.example.saluslink.ui.fragments
+package com.example.saluslink.ui.fragments.register
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.navigation.fragment.findNavController
 import com.example.saluslink.R
 import com.example.saluslink.utilits.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SecondRegisterFragment : Fragment(R.layout.fragment_second_register) {

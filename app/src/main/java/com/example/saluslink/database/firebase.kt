@@ -63,6 +63,7 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
     mapMessage["from"] = uid
     mapMessage["type"] = typeText
     mapMessage["text"] = message
+    mapMessage["id"] = messageKey.toString()
     mapMessage["timeStamp"] = ServerValue.TIMESTAMP
 
     val mapDialog = hashMapOf<String, Any>()

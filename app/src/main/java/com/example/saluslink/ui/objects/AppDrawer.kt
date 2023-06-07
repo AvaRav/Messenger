@@ -8,7 +8,7 @@ import com.example.saluslink.R
 import com.example.saluslink.ui.fragments.UsersFragment
 import com.example.saluslink.ui.fragments.MessageFragment
 import com.example.saluslink.ui.fragments.ProfileFragment
-import com.example.saluslink.ui.fragments.SettingsFragment
+import com.example.saluslink.ui.fragments.settings.SettingsFragment
 import com.example.saluslink.utilits.APP_ACTIVITY
 import com.example.saluslink.utilits.downloadAndSetImage
 import com.example.saluslink.utilits.replaceFragment

@@ -1,16 +1,12 @@
-package com.example.saluslink.ui.fragments
+package com.example.saluslink.ui.fragments.settings
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.saluslink.R
 import com.example.saluslink.utilits.*
 
-class AboutFragment : Fragment(R.layout.fragment_about) {
+class ChangeAboutFragment : Fragment(R.layout.fragment_about) {
     override fun onResume() {
         super.onResume()
 

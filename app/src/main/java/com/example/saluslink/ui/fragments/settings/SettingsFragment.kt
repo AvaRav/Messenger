@@ -1,4 +1,4 @@
-package com.example.saluslink.ui.fragments
+package com.example.saluslink.ui.fragments.settings
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.saluslink.R
 import com.example.saluslink.activities.RegisterActivity
+import com.example.saluslink.ui.fragments.BaseFragment
 import com.example.saluslink.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -41,7 +42,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         }
 
         changeAboutButton?.setOnClickListener{
-            replaceFragment(AboutFragment(), true)
+            replaceFragment(ChangeAboutFragment(), true)
         }
     }
 

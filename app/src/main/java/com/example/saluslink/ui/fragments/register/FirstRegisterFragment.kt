@@ -1,9 +1,5 @@
-package com.example.saluslink.ui.fragments
+package com.example.saluslink.ui.fragments.register
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.ImageButton
@@ -11,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.saluslink.R
 import com.example.saluslink.utilits.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirstRegisterFragment : Fragment(R.layout.fragment_first_register) {

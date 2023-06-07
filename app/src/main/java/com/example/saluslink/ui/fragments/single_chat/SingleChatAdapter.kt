@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
+import com.example.saluslink.utilits.DiffUtilCallback
 import com.example.saluslink.utilits.asTime
 import com.example.saluslink.utilits.uid
 import java.text.SimpleDateFormat
@@ -15,7 +17,8 @@ import java.util.*
 
 class SingleChatAdapter: RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
 
-    private var mlistMessagesCache = emptyList<CommonModel>()
+    private var mlistMessagesCache = mutableListOf<CommonModel>()
+    private lateinit var mDiffResult: DiffUtil.DiffResult
 
     class SingleChatHolder(view: View): RecyclerView.ViewHolder(view){
         val blockUserMessage:ConstraintLayout = view.findViewById(R.id.block_user_message)
@@ -48,9 +51,19 @@ class SingleChatAdapter: RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder
 
     override fun getItemCount(): Int = mlistMessagesCache.size
 
-    fun setList(list: List<CommonModel>){
-        mlistMessagesCache = list
-        notifyDataSetChanged()
+    fun addItem(item: CommonModel, toBottom: Boolean){
+        if (toBottom){
+            if (!mlistMessagesCache.contains(item)){
+                mlistMessagesCache.add(item)
+                notifyItemInserted(mlistMessagesCache.size)
+            }
+        } else {
+            if (!mlistMessagesCache.contains(item)) {
+                mlistMessagesCache.add(item)
+                mlistMessagesCache.sortBy { it.timeStamp.toString() }
+                notifyItemInserted(0)
+            }
+        }
     }
 }
 

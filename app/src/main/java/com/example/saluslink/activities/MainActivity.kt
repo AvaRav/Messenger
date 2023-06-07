@@ -1,4 +1,4 @@
-package com.example.saluslink
+package com.example.saluslink.activities
 
 import android.content.Context
 import android.content.Intent
