@@ -18,8 +18,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_photo"
-            android:layout_width="@dimen/message_image_size"
-            android:layout_height="@dimen/message_image_size"
+            android:layout_width="@dimen/message_profile_image_size"
+            android:layout_height="@dimen/message_profile_image_size"
             android:layout_marginStart="@dimen/horizontal_margin"
             android:src="@drawable/doctor"
             app:civ_border_color="@color/colorBorder"
@@ -80,6 +80,18 @@
         android:layout_height="0dp"
         android:padding="@dimen/appPadding"
         android:src="@drawable/ic_send"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
+
+    <ImageView
+        android:id="@+id/chat_btn_attach"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/appPadding"
+        android:src="@drawable/ic_attach"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -47,7 +47,7 @@ fun hideKeyboard(){
 fun ImageView.downloadAndSetImage(url:String){
     Picasso.get()
         .load(url)
-        .placeholder(R.drawable.doctor)
+        .placeholder(R.drawable.icon)
         .into(this)
 }
 

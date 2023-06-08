@@ -1,7 +1,5 @@
 package com.example.saluslink.utilits
 
-// Пока не использовалось! Потом можно будет удалить!
-
 import android.text.Editable
 import android.text.TextWatcher
 

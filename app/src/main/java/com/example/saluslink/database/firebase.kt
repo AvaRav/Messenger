@@ -19,6 +19,7 @@ lateinit var user: User
 lateinit var ref_storage_root: StorageReference
 
 const val folder_profile_image = "profile_image"
+const val folder_message_image = "message_image"
 
 fun initFirebase(){
     auth = FirebaseAuth.getInstance()
@@ -76,6 +77,25 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
         .addOnFailureListener { showToast("Не удалось отправить сообщение") }
 }
 
+fun sendMessageAsImage(receivingUserID: String, imageUrl: String, messageKey: String) {
+    val refDialogUser = "/messages/$uid/$receivingUserID"
+    val refDialogReceivingUser = "/messages/$receivingUserID/$uid"
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage["from"] = uid
+    mapMessage["type"] = TYPE_MESSAGE_IMAGE
+    mapMessage["id"] = messageKey
+    mapMessage["timeStamp"] = ServerValue.TIMESTAMP
+    mapMessage["imageUrl"] = imageUrl
+
+    val mapDialog = hashMapOf<String, Any>()
+    mapDialog["$refDialogUser/$messageKey"] = mapMessage
+    mapDialog["$refDialogReceivingUser/$messageKey"] = mapMessage
+
+    ref_database_root
+        .updateChildren(mapDialog)
+        .addOnFailureListener { showToast("Не удалось отправить сообщение") }
+}
 
 fun DataSnapshot.getCommonModel(): CommonModel =
     this.getValue(CommonModel::class.java) ?: CommonModel()

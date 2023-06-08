@@ -1,10 +1,13 @@
 package com.example.saluslink.ui.fragments.single_chat
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.AbsListView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
@@ -15,6 +18,8 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 
 class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
 
@@ -32,8 +37,32 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
 
     override fun onResume() {
         super.onResume()
+        initFields()
         initHeader()
         initRecycleView()
+    }
+
+    private fun initFields() {
+        requireView().findViewById<EditText>(R.id.chat_input_message).addTextChangedListener(AppTextWatcher{
+            val string = requireView().findViewById<EditText>(R.id.chat_input_message).text.toString()
+            if (string.isEmpty()){
+                requireView().findViewById<ImageView>(R.id.chat_btn_send_message).visibility = View.GONE
+                requireView().findViewById<ImageView>(R.id.chat_btn_attach).visibility = View.VISIBLE
+            } else {
+                requireView().findViewById<ImageView>(R.id.chat_btn_send_message).visibility = View.VISIBLE
+                requireView().findViewById<ImageView>(R.id.chat_btn_attach).visibility = View.GONE
+            }
+        })
+        requireView().findViewById<ImageView>(R.id.chat_btn_attach).setOnClickListener {
+            attachFile()
+        }
+    }
+
+    private fun attachFile() {
+        CropImage.activity()
+            .setAspectRatio(1,1)
+            .setRequestedSize(200, 200)
+            .start(APP_ACTIVITY, this)
     }
 
     private fun initRecycleView() {
@@ -105,6 +134,24 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         mHeaderInfo.findViewById<TextView>(R.id.user_name).text = mReceivingUser.fullname
         mHeaderInfo.findViewById<TextView>(R.id.message_text_online_offline).text = mReceivingUser.status
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null){
+            val uri = CropImage.getActivityResult(data).uri
+            val messageKey = ref_database_root.child("messages").child(uid).child(model.id).push().key.toString()
+            val path = ref_storage_root.child(folder_message_image).child(messageKey)
+            val photo = requireView().findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.settings_user_photo)
+
+            putImageStorage(uri, path){
+                getUrlFromStorage(path){
+                    sendMessageAsImage(model.id, it, messageKey)
+                    mSmoothScrollToPosition = true
+                }
+            }
+        }
+    }
+
 
     override fun onPause() {
         super.onPause()

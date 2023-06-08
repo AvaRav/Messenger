@@ -49,7 +49,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun changeUserPhoto() {
         CropImage.activity()
             .setAspectRatio(1,1)
-            .setRequestedSize(600, 600)
+            .setRequestedSize(200, 200)
             .setCropShape(CropImageView.CropShape.OVAL)
             .start(APP_ACTIVITY, this)
     }
@@ -71,8 +71,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
             val uri = CropImage.getActivityResult(data).uri
