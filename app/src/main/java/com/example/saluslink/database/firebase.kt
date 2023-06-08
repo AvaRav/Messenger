@@ -8,7 +8,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -19,7 +18,7 @@ lateinit var user: User
 lateinit var ref_storage_root: StorageReference
 
 const val folder_profile_image = "profile_image"
-const val folder_message_image = "message_image"
+const val folder_files = "messages_files"
 
 fun initFirebase(){
     auth = FirebaseAuth.getInstance()
@@ -41,7 +40,7 @@ inline fun getUrlFromStorage(path: StorageReference, crossinline function: (url:
         .addOnFailureListener { showToast("Ошибка!") }
 }
 
-inline fun putImageStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
+inline fun putFileToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
     path.putFile(uri)
         .addOnSuccessListener {function()}
         .addOnFailureListener { showToast("Ошибка!") }
@@ -77,16 +76,16 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
         .addOnFailureListener { showToast("Не удалось отправить сообщение") }
 }
 
-fun sendMessageAsImage(receivingUserID: String, imageUrl: String, messageKey: String) {
+fun sendMessageAsFile(receivingUserID: String, fileUrl: String, messageKey: String, typeMessage: String) {
     val refDialogUser = "/messages/$uid/$receivingUserID"
     val refDialogReceivingUser = "/messages/$receivingUserID/$uid"
 
     val mapMessage = hashMapOf<String, Any>()
     mapMessage["from"] = uid
-    mapMessage["type"] = TYPE_MESSAGE_IMAGE
+    mapMessage["type"] = typeMessage
     mapMessage["id"] = messageKey
     mapMessage["timeStamp"] = ServerValue.TIMESTAMP
-    mapMessage["imageUrl"] = imageUrl
+    mapMessage["fileUrl"] = fileUrl
 
     val mapDialog = hashMapOf<String, Any>()
     mapDialog["$refDialogUser/$messageKey"] = mapMessage
@@ -95,6 +94,19 @@ fun sendMessageAsImage(receivingUserID: String, imageUrl: String, messageKey: St
     ref_database_root
         .updateChildren(mapDialog)
         .addOnFailureListener { showToast("Не удалось отправить сообщение") }
+}
+
+fun getMessageKey(id: String) =
+    ref_database_root.child("messages").child(uid).child(id).push().key.toString()
+
+fun uploadFileToStorage(uri: Uri, messageKey:String, id: String, typeMessage:String){
+    val path = ref_storage_root.child(folder_files).child(messageKey)
+
+    putFileToStorage(uri, path){
+        getUrlFromStorage(path){
+            sendMessageAsFile(id, it, messageKey, typeMessage)
+        }
+    }
 }
 
 fun DataSnapshot.getCommonModel(): CommonModel =

@@ -77,7 +77,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             val path = ref_storage_root.child(folder_profile_image).child(uid)
             val photo = requireView().findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.settings_user_photo)
 
-            putImageStorage(uri, path){
+            putFileToStorage(uri, path){
                 getUrlFromStorage(path){
                     putUrlToDatabase(it){
                         photo.downloadAndSetImage(it)

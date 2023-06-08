@@ -1,25 +1,28 @@
 package com.example.saluslink.ui.fragments.single_chat
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AbsListView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
 import com.example.saluslink.models.User
 import com.example.saluslink.ui.fragments.BaseFragment
+import com.example.saluslink.ui.fragments.message_recycler_view.views.AppViewFactory
 import com.example.saluslink.utilits.*
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
 
@@ -34,6 +37,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
     private var mCountMessages = 20
     private var mIsScrolling = false
     private var mSmoothScrollToPosition = true
+    private lateinit var mAppVoiceRecorder: AppVoiceRecorder
 
     override fun onResume() {
         super.onResume()
@@ -42,26 +46,53 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         initRecycleView()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
+        mAppVoiceRecorder = AppVoiceRecorder()
         requireView().findViewById<EditText>(R.id.chat_input_message).addTextChangedListener(AppTextWatcher{
             val string = requireView().findViewById<EditText>(R.id.chat_input_message).text.toString()
-            if (string.isEmpty()){
+            if (string.isEmpty() || string == "Идет запись..."){
                 requireView().findViewById<ImageView>(R.id.chat_btn_send_message).visibility = View.GONE
                 requireView().findViewById<ImageView>(R.id.chat_btn_attach).visibility = View.VISIBLE
+                requireView().findViewById<ImageView>(R.id.chat_btn_voice).visibility = View.VISIBLE
             } else {
                 requireView().findViewById<ImageView>(R.id.chat_btn_send_message).visibility = View.VISIBLE
                 requireView().findViewById<ImageView>(R.id.chat_btn_attach).visibility = View.GONE
+                requireView().findViewById<ImageView>(R.id.chat_btn_voice).visibility = View.GONE
             }
         })
         requireView().findViewById<ImageView>(R.id.chat_btn_attach).setOnClickListener {
             attachFile()
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            requireView().findViewById<ImageView>(R.id.chat_btn_voice).setOnTouchListener { v, event ->
+                if (checkPermission(RECORD_AUDIO)){
+                    if (event.action == MotionEvent.ACTION_DOWN){
+                        requireView().findViewById<EditText>(R.id.chat_input_message).setText("Идет запись...")
+                        requireView().findViewById<ImageView>(R.id.chat_btn_voice)
+                            .setColorFilter(ContextCompat.getColor(APP_ACTIVITY, R.color.colorPrimaryVariantDark))
+                        val messageKey = getMessageKey(model.id)
+                        mAppVoiceRecorder.startRecord(messageKey)
+                    } else if(event.action == MotionEvent.ACTION_UP){
+                        requireView().findViewById<EditText>(R.id.chat_input_message).setText("")
+                        requireView().findViewById<ImageView>(R.id.chat_btn_voice)
+                            .colorFilter = null
+                        mAppVoiceRecorder.stopRecord{ file, messageKey ->
+                            uploadFileToStorage(Uri.fromFile(file), messageKey, model.id, TYPE_MESSAGE_VOICE)
+                            mSmoothScrollToPosition = true
+                        }
+                    }
+                }
+                true
+            }
         }
     }
 
     private fun attachFile() {
         CropImage.activity()
             .setAspectRatio(1,1)
-            .setRequestedSize(200, 200)
+            .setRequestedSize(300, 300)
             .start(APP_ACTIVITY, this)
     }
 
@@ -75,7 +106,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.isNestedScrollingEnabled = false
         mMessagesListener = AppChildEventListener{
-            mAdapter.addItem(it.getCommonModel(), mSmoothScrollToPosition)
+            mAdapter.addItem(AppViewFactory.getView(it.getCommonModel()), mSmoothScrollToPosition)
             if (mSmoothScrollToPosition){
                 mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
             }
@@ -139,23 +170,20 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null){
             val uri = CropImage.getActivityResult(data).uri
-            val messageKey = ref_database_root.child("messages").child(uid).child(model.id).push().key.toString()
-            val path = ref_storage_root.child(folder_message_image).child(messageKey)
-            val photo = requireView().findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.settings_user_photo)
-
-            putImageStorage(uri, path){
-                getUrlFromStorage(path){
-                    sendMessageAsImage(model.id, it, messageKey)
-                    mSmoothScrollToPosition = true
-                }
-            }
+            val messageKey = getMessageKey(model.id)
+            uploadFileToStorage(uri, messageKey, model.id, TYPE_MESSAGE_IMAGE)
+            mSmoothScrollToPosition = true
         }
     }
-
 
     override fun onPause() {
         super.onPause()
         mRefUser.removeEventListener(mListenerInfoHeader)
         mRefMessages.removeEventListener(mMessagesListener)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mAppVoiceRecorder.releaseRecorder()
     }
 }
