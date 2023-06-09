@@ -16,8 +16,10 @@ import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
 import com.example.saluslink.models.User
 import com.example.saluslink.ui.fragments.BaseFragment
-import com.example.saluslink.ui.fragments.message_recycler_view.views.AppViewFactory
+import com.example.saluslink.ui.fragments.UserProfileFragment
+import com.example.saluslink.ui.message_recycler_view.views.AppViewFactory
 import com.example.saluslink.utilits.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.coroutines.CoroutineScope
@@ -38,6 +40,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
     private var mIsScrolling = false
     private var mSmoothScrollToPosition = true
     private lateinit var mAppVoiceRecorder: AppVoiceRecorder
+    private lateinit var mBottomSheetBehavior: BottomSheetBehavior<*>
 
     override fun onResume() {
         super.onResume()
@@ -48,6 +51,8 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
+        mBottomSheetBehavior = BottomSheetBehavior.from(requireView().findViewById(R.id.bottom_sheet_choice))
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         mAppVoiceRecorder = AppVoiceRecorder()
         requireView().findViewById<EditText>(R.id.chat_input_message).addTextChangedListener(AppTextWatcher{
             val string = requireView().findViewById<EditText>(R.id.chat_input_message).text.toString()
@@ -62,7 +67,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
             }
         })
         requireView().findViewById<ImageView>(R.id.chat_btn_attach).setOnClickListener {
-            attachFile()
+            attach()
         }
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -87,13 +92,31 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
                 true
             }
         }
+
+        requireView().findViewById<ImageView>(R.id.user_photo).setOnClickListener {
+            APP_ACTIVITY.replaceFragment(UserProfileFragment(model))
+        }
     }
 
-    private fun attachFile() {
+    private fun attach() {
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        requireView().findViewById<ImageView>(R.id.btn_attach_file).setOnClickListener { attachFile() }
+        requireView().findViewById<ImageView>(R.id.btn_attach_image).setOnClickListener { attachImage() }
+    }
+
+    private fun attachFile(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        startActivityForResult(intent, PICK_FILE_REQUEST_CODE)
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    private fun attachImage() {
         CropImage.activity()
             .setAspectRatio(1,1)
             .setRequestedSize(300, 300)
             .start(APP_ACTIVITY, this)
+            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     private fun initRecycleView() {
@@ -168,13 +191,26 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null){
-            val uri = CropImage.getActivityResult(data).uri
-            val messageKey = getMessageKey(model.id)
-            uploadFileToStorage(uri, messageKey, model.id, TYPE_MESSAGE_IMAGE)
-            mSmoothScrollToPosition = true
+        if (data!=null){
+            when (requestCode){
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    val uri = CropImage.getActivityResult(data).uri
+                    val messageKey = getMessageKey(model.id)
+                    uploadFileToStorage(uri, messageKey, model.id, TYPE_MESSAGE_IMAGE)
+                    mSmoothScrollToPosition = true
+                }
+                PICK_FILE_REQUEST_CODE -> {
+                    val uri = data.data
+                    val messageKey = getMessageKey(model.id)
+                    val filename = getFilenameFromUri(uri!!)
+                    uploadFileToStorage(uri, messageKey, model.id, TYPE_MESSAGE_FILE, filename)
+                    mSmoothScrollToPosition = true
+                }
+            }
         }
     }
+
+
 
     override fun onPause() {
         super.onPause()

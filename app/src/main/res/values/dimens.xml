@@ -49,6 +49,14 @@
     <dimen name="message_profile_image_size">50dp</dimen>
     <dimen name="message_header_height">55dp</dimen>
     <dimen name="message_image_size">180dp</dimen>
+    <dimen name="message_voice_weight">180dp</dimen>
+    <dimen name="message_voice_height">60dp</dimen>
+    <dimen name="voice_btn_size">55dp</dimen>
+    <dimen name="bottom_sheet_height">70dp</dimen>
+    <dimen name="message_file_weight">200dp</dimen>
+    <dimen name="message_file_height">60dp</dimen>
+    <dimen name="file_btn_size">55dp</dimen>
+    <dimen name="progress_bar">30dp</dimen>
 
 
 </resources>

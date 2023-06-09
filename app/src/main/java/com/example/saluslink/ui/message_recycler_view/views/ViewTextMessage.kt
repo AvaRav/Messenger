@@ -1,4 +1,4 @@
-package com.example.saluslink.ui.fragments.message_recycler_view.views
+package com.example.saluslink.ui.message_recycler_view.views
 
 class ViewTextMessage(
     override val id: String,

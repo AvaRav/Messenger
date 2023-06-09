@@ -1,10 +1,10 @@
-package com.example.saluslink.ui.fragments.message_recycler_view.view_holders
+package com.example.saluslink.ui.message_recycler_view.view_holders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
-import com.example.saluslink.ui.fragments.message_recycler_view.views.MessageView
+import com.example.saluslink.ui.message_recycler_view.views.MessageView
 
 class AppHolderFactory {
     companion object{
@@ -14,6 +14,16 @@ class AppHolderFactory {
                     val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.message_item_image, parent, false)
                     HolderImageMessage(view)
+                }
+                MessageView.MESSAGE_VOICE -> {
+                    val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.message_item_voice, parent, false)
+                    HolderVoiceMessage(view)
+                }
+                MessageView.MESSAGE_FILE -> {
+                    val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.message_item_file, parent, false)
+                    HolderFileMessage(view)
                 }
                 else ->{
                     val view = LayoutInflater.from(parent.context)

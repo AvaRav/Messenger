@@ -8,12 +8,8 @@ import com.example.saluslink.utilits.user
 
 class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
-    private lateinit var mBinding: FragmentProfileBinding
-
     override fun onResume() {
         super.onResume()
-
-        //В случае чего переписать под DataBinding
 
         val name = requireView().findViewById<TextView>(R.id.name)
         val surname = requireView().findViewById<TextView>(R.id.surname)

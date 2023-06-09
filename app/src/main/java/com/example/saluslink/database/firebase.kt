@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.File
 
 lateinit var auth: FirebaseAuth
 lateinit var ref_database_root: DatabaseReference
@@ -76,7 +77,7 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
         .addOnFailureListener { showToast("Не удалось отправить сообщение") }
 }
 
-fun sendMessageAsFile(receivingUserID: String, fileUrl: String, messageKey: String, typeMessage: String) {
+fun sendMessageAsFile(receivingUserID: String, fileUrl: String, messageKey: String, typeMessage: String, filename: String) {
     val refDialogUser = "/messages/$uid/$receivingUserID"
     val refDialogReceivingUser = "/messages/$receivingUserID/$uid"
 
@@ -86,6 +87,7 @@ fun sendMessageAsFile(receivingUserID: String, fileUrl: String, messageKey: Stri
     mapMessage["id"] = messageKey
     mapMessage["timeStamp"] = ServerValue.TIMESTAMP
     mapMessage["fileUrl"] = fileUrl
+    mapMessage["text"] = filename
 
     val mapDialog = hashMapOf<String, Any>()
     mapDialog["$refDialogUser/$messageKey"] = mapMessage
@@ -99,14 +101,21 @@ fun sendMessageAsFile(receivingUserID: String, fileUrl: String, messageKey: Stri
 fun getMessageKey(id: String) =
     ref_database_root.child("messages").child(uid).child(id).push().key.toString()
 
-fun uploadFileToStorage(uri: Uri, messageKey:String, id: String, typeMessage:String){
+fun uploadFileToStorage(uri: Uri, messageKey:String, id: String, typeMessage:String, filename: String = ""){
     val path = ref_storage_root.child(folder_files).child(messageKey)
 
     putFileToStorage(uri, path){
         getUrlFromStorage(path){
-            sendMessageAsFile(id, it, messageKey, typeMessage)
+            sendMessageAsFile(id, it, messageKey, typeMessage, filename)
         }
     }
+}
+
+fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
+    val path = ref_storage_root.storage.getReferenceFromUrl(fileUrl)
+    path.getFile(mFile)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast("Не удалось получить файл") }
 }
 
 fun DataSnapshot.getCommonModel(): CommonModel =
