@@ -1,11 +1,9 @@
 package com.example.saluslink.ui.fragments.single_chat
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.AbsListView
 import android.widget.EditText
 import android.widget.ImageView
@@ -13,10 +11,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
+import com.example.saluslink.activities.RegisterActivity
 import com.example.saluslink.models.CommonModel
 import com.example.saluslink.models.User
 import com.example.saluslink.ui.fragments.BaseFragment
 import com.example.saluslink.ui.fragments.UserProfileFragment
+import com.example.saluslink.ui.fragments.message_list.MessageAdapter
+import com.example.saluslink.ui.fragments.message_list.MessageFragment
 import com.example.saluslink.ui.message_recycler_view.views.AppViewFactory
 import com.example.saluslink.utilits.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -51,6 +52,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
+        setHasOptionsMenu(true)
         mBottomSheetBehavior = BottomSheetBehavior.from(requireView().findViewById(R.id.bottom_sheet_choice))
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         mAppVoiceRecorder = AppVoiceRecorder()
@@ -178,6 +180,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
             if (message.isEmpty()) {
                 showToast("Введите сообщение")
             } else sendMessage(message, model.id, "text") {
+                saveToMessageList(model.id, TYPE_CHAT)
                 requireView().findViewById<EditText>(R.id.chat_input_message).setText("")
             }
         }
@@ -210,8 +213,6 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         }
     }
 
-
-
     override fun onPause() {
         super.onPause()
         mRefUser.removeEventListener(mListenerInfoHeader)
@@ -221,5 +222,23 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
     override fun onDestroy() {
         super.onDestroy()
         mAppVoiceRecorder.releaseRecorder()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.single_action_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_clear_chat -> clearChat(model.id){
+                showToast("Чат очищен")
+                APP_ACTIVITY.replaceFragment(MessageFragment())
+            }
+            R.id.menu_delete_chat -> deleteChat(model.id){
+                showToast("Чат удален")
+                APP_ACTIVITY.replaceFragment(MessageFragment())
+            }
+        }
+        return true
     }
 }

@@ -40,4 +40,7 @@
     <string name="about_me_text">Обо мне</string>
     <string name="default_profile_about">Не указано</string>
     <string name="search">Поиск</string>
+    <string name="last_message">Последнее сообщение</string>
+    <string name="clear_chat">Очистить чат</string>
+    <string name="delete_chat">Удалить чат</string>
 </resources>

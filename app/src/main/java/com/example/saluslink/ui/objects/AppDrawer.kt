@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import com.example.saluslink.R
 import com.example.saluslink.ui.fragments.UsersFragment
-import com.example.saluslink.ui.fragments.MessageFragment
+import com.example.saluslink.ui.fragments.message_list.MessageFragment
 import com.example.saluslink.ui.fragments.ProfileFragment
 import com.example.saluslink.ui.fragments.settings.SettingsFragment
 import com.example.saluslink.utilits.APP_ACTIVITY

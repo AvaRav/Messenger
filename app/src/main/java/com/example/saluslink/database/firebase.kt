@@ -118,8 +118,45 @@ fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
         .addOnFailureListener { showToast("Не удалось получить файл") }
 }
 
+fun saveToMessageList(id: String, type: String) {
+    val refUser = "message_list/$uid/$id"
+    val refReceived = "message_list/$id/$uid"
+
+    val mapUser = hashMapOf<String, Any>()
+    val mapReceived = hashMapOf<String, Any>()
+
+    mapUser["id"] = id
+    mapUser["type"] = type
+
+    mapReceived["id"] = uid
+    mapReceived["type"] = type
+
+    val commonMap = hashMapOf<String, Any>()
+    commonMap[refUser] = mapUser
+    commonMap[refReceived] = mapReceived
+
+    ref_database_root.updateChildren(commonMap)
+        .addOnFailureListener { showToast("Ошибка загрузки чатов") }
+}
+
 fun DataSnapshot.getCommonModel(): CommonModel =
     this.getValue(CommonModel::class.java) ?: CommonModel()
 
 fun DataSnapshot.getUserModel(): User =
     this.getValue(User::class.java) ?: User()
+
+fun deleteChat(id: String, function: () -> Unit) {
+    ref_database_root.child("message_list").child(uid).child(id).removeValue()
+        .addOnFailureListener { showToast("Не удалось удалить чат") }
+        .addOnSuccessListener { function() }
+}
+
+fun clearChat(id: String, function: () -> Unit) {
+    ref_database_root.child("messages").child(uid).child(id)
+        .removeValue()
+        .addOnFailureListener { showToast("Не удалось отчистить чат") }
+        .addOnSuccessListener { ref_database_root.child("messages").child(id).child(uid)
+            .removeValue()
+            .addOnSuccessListener { function() }}
+        .addOnFailureListener { showToast("Не удалось отчистить чат") }
+}
