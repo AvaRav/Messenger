@@ -6,6 +6,7 @@
     <dimen name="super_large_margin_top">40dp</dimen>
     <dimen name="large_margin_top">20dp</dimen>
     <dimen name="default_margin_top">10dp</dimen>
+    <dimen name="big_margin">15dp</dimen>
     <dimen name="little_margin_top">5dp</dimen>
 
 <!--text size-->
@@ -19,6 +20,7 @@
     <dimen name="settings_profile_height">90dp</dimen>
     <dimen name="border_width">2dp</dimen>
     <dimen name="icon_size">70dp</dimen>
+    <dimen name="icon_size_group_chat">30dp</dimen>
 
     <dimen name="separator_height">1dp</dimen>
     <dimen name="corners_ripple_effect">4dp</dimen>
@@ -49,14 +51,16 @@
     <dimen name="message_profile_image_size">50dp</dimen>
     <dimen name="message_header_height">55dp</dimen>
     <dimen name="message_image_size">180dp</dimen>
-    <dimen name="message_voice_weight">180dp</dimen>
+    <dimen name="message_voice_weight">150dp</dimen>
     <dimen name="message_voice_height">60dp</dimen>
+    <dimen name="group_message_voice_height">80dp</dimen>
     <dimen name="voice_btn_size">55dp</dimen>
     <dimen name="bottom_sheet_height">70dp</dimen>
     <dimen name="message_file_weight">200dp</dimen>
-    <dimen name="message_file_height">60dp</dimen>
+    <dimen name="group_message_file_height">95dp</dimen>
+    <dimen name="message_file_height">75dp</dimen>
     <dimen name="file_btn_size">55dp</dimen>
-    <dimen name="progress_bar">30dp</dimen>
+    <dimen name="progress_bar">50dp</dimen>
 
 
 </resources>

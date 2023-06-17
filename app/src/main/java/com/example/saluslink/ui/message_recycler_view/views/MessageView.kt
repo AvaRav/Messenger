@@ -1,11 +1,16 @@
 package com.example.saluslink.ui.message_recycler_view.views
 
+import android.graphics.drawable.Drawable
+import com.example.saluslink.models.CommonModel
+
 interface MessageView {
     val id: String
     val from: String
     val timeStamp: String
     val fileUrl: String
     val text: String
+    val photoUrl: String
+    val fullname: String
 
     companion object{
         val MESSAGE_IMAGE: Int

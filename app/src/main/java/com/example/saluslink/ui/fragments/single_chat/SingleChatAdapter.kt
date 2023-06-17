@@ -5,12 +5,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.ui.message_recycler_view.view_holders.*
 import com.example.saluslink.ui.message_recycler_view.views.MessageView
 
-class SingleChatAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SingleChatAdapter(private val isGroupChat: Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mListMessagesCache = mutableListOf<MessageView>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return AppHolderFactory.getHolder(parent, viewType)
+        return AppHolderFactory.getHolder(parent, viewType, isGroupChat)
     }
 
     override fun getItemViewType(position: Int): Int {

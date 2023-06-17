@@ -7,26 +7,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/block_user_image_message"
+        android:id="@+id/group_block_received_image_message"
         android:layout_width="@dimen/message_image_size"
         android:layout_height="@dimen/message_image_size"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/group_block_received_image_message">
 
         <ImageView
-            android:id="@+id/chat_user_image"
+            android:id="@+id/group_received_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="TODO"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="TODO" />
-
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/chat_user_image_message_time"
+            android:id="@+id/group_received_image_message_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="19:00"
@@ -34,12 +36,19 @@
             android:gravity="end"
             android:layout_marginEnd="@dimen/default_margin_top"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/chat_user_image"/>
+            app:layout_constraintBottom_toBottomOf="@id/group_received_image"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/group_message_item_image" />
-
-    <include layout="@layout/single_message_item_image" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/photo_group_chat"
+        android:layout_width="@dimen/icon_size_group_chat"
+        android:layout_height="@dimen/icon_size_group_chat"
+        android:src="@drawable/doctor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/group_block_received_image_message"
+        android:layout_margin="@dimen/default_margin_top"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

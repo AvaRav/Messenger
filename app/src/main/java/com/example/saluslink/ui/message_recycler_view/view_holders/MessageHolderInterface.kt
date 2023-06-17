@@ -1,5 +1,6 @@
 package com.example.saluslink.ui.message_recycler_view.view_holders
 
+import com.example.saluslink.models.CommonModel
 import com.example.saluslink.ui.message_recycler_view.views.MessageView
 
 interface MessageHolderInterface {

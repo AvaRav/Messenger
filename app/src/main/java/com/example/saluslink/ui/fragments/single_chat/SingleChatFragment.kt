@@ -123,7 +123,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
 
     private fun initRecycleView() {
         mRecyclerView = requireView().findViewById(R.id.chat_recycler_view)
-        mAdapter = SingleChatAdapter()
+        mAdapter = SingleChatAdapter(false)
         mRefMessages = ref_database_root.child("messages")
             .child(uid)
             .child(model.id)
@@ -199,7 +199,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
                 CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                     val uri = CropImage.getActivityResult(data).uri
                     val messageKey = getMessageKey(model.id)
-                    uploadFileToStorage(uri, messageKey, model.id, TYPE_MESSAGE_IMAGE)
+                    uploadFileToStorage(uri, messageKey,  model.id, TYPE_MESSAGE_IMAGE)
                     mSmoothScrollToPosition = true
                 }
                 PICK_FILE_REQUEST_CODE -> {

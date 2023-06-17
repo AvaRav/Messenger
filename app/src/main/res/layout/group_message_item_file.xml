@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin_top"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/group_block_received_file_message"
+        android:layout_width="@dimen/message_file_weight"
+        android:layout_height="@dimen/group_message_file_height"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/bg_receiving_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/group_chat_received_btn_download"
+            android:layout_width="@dimen/file_btn_size"
+            android:layout_height="@dimen/file_btn_size"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_received_file"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <TextView
+            android:id="@+id/group_chat_received_file_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin_top"
+            android:layout_marginEnd="@dimen/default_margin_top"
+            android:layout_marginTop="25dp"
+            android:maxLines="2"
+            android:textColor="@color/accent"
+            app:layout_constraintBottom_toBottomOf="@id/group_chat_received_file_message_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/group_chat_received_btn_download"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name_group_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/default_margin_top"
+            android:paddingStart="@dimen/big_margin"
+            android:paddingEnd="@dimen/big_margin"
+            android:gravity="start"
+            android:textColor="@color/accent"
+            app:layout_constraintStart_toStartOf="@id/group_block_received_file_message"
+            app:layout_constraintTop_toTopOf="@id/group_block_received_file_message"
+            tools:text="Петруша Максим" />
+
+        <TextView
+            android:id="@+id/group_chat_received_file_message_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin_top"
+            android:gravity="end"
+            android:textColor="@color/accent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="19:00" />
+
+        <ProgressBar
+            android:id="@+id/group_received_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/group_chat_received_btn_download"
+            app:layout_constraintEnd_toEndOf="@+id/group_chat_received_btn_download"
+            app:layout_constraintStart_toStartOf="@+id/group_chat_received_btn_download"
+            app:layout_constraintTop_toTopOf="@+id/group_chat_received_btn_download" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/photo_group_chat"
+        android:layout_width="@dimen/icon_size_group_chat"
+        android:layout_height="@dimen/icon_size_group_chat"
+        android:src="@drawable/doctor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/group_block_received_file_message"
+        android:layout_margin="@dimen/default_margin_top"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

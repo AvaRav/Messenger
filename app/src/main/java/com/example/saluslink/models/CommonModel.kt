@@ -20,6 +20,8 @@ data class CommonModel(
 
     var lastMessage: String = "",
 
+    var title: String = "",
+
     ) {
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == id

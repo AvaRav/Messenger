@@ -4,7 +4,6 @@ import android.widget.TextView
 import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
 import com.example.saluslink.utilits.downloadAndSetImage
-import com.example.saluslink.utilits.user
 
 class UserProfileFragment(private val model: CommonModel) : BaseFragment(R.layout.fragment_user_profile) {
     override fun onResume() {

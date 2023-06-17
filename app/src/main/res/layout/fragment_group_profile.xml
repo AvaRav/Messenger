@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.ProfileFragment">
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/colorProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/user_profile_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_profile_photo"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/name_group"
+        style="@style/name_style"
+        android:maxWidth="160dp"
+        android:layout_marginStart="@dimen/default_profile_fio_start_margin"
+        android:text="@string/default_name_group"
+        android:textSize="@dimen/text_size_profile_fio"
+        app:layout_constraintStart_toEndOf="@+id/user_profile_photo"
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_profile_photo"
+        android:layout_width="@dimen/width_photo_profile"
+        android:layout_height="@dimen/width_photo_profile"
+        android:layout_marginStart="@dimen/profile_margin_start"
+        android:layout_marginTop="@dimen/profile_margin_top"
+        android:src="@drawable/camera"
+        app:civ_border_color="@color/colorBorder"
+        app:civ_border_width="@dimen/border_width"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/about_text_view_group"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_margin="@dimen/layout_margin_profile"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/profile_bio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_photo"
+        app:layout_constraintVertical_bias="0.267" />
+
+    <View
+        android:id="@+id/about_bio_view_group"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/layout_margin_profile"
+        android:background="@drawable/profile_about"
+        app:layout_constraintBottom_toTopOf="@+id/about_text_view_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.897"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/about_text_view_group"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/user_profile_about_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_group_text"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/about_bio_view_group"
+        app:layout_constraintEnd_toEndOf="@+id/about_bio_view_group"
+        app:layout_constraintStart_toStartOf="@+id/about_bio_view_group"
+        app:layout_constraintTop_toTopOf="@+id/about_bio_view_group" />
+
+    <TextView
+        android:id="@+id/textViewGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:text="@string/change_direction_hint"
+        android:textColor="@color/colorProfileText"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintStart_toEndOf="@+id/imageViewGroup1"
+        app:layout_constraintTop_toTopOf="@+id/imageViewGroup1" />
+
+    <TextView
+        android:id="@+id/group_profile_direction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxWidth="160dp"
+        android:maxHeight="50dp"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:layout_marginTop="@dimen/little_margin_top"
+        android:text="@string/default_profile_about"
+        android:textColor="@color/black"
+        android:textSize="@dimen/little_text_size"
+        app:layout_constraintStart_toEndOf="@+id/imageViewGroup1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGroup2" />
+
+    <TextView
+        android:id="@+id/textViewGroup3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:text="@string/change_themes_hint"
+        android:textColor="@color/colorProfileText"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintStart_toEndOf="@+id/imageViewGroup2"
+        app:layout_constraintTop_toTopOf="@+id/imageViewGroup2" />
+
+    <TextView
+        android:id="@+id/group_profile_themes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxWidth="160dp"
+        android:maxHeight="50dp"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:layout_marginTop="@dimen/little_margin_top"
+        android:text="@string/default_profile_about"
+        android:textColor="@color/black"
+        android:textSize="@dimen/little_text_size"
+        app:layout_constraintStart_toEndOf="@+id/imageViewGroup2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGroup3" />
+
+    <TextView
+        android:id="@+id/textViewGroup4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:text="@string/change_aboutTheTopic_hint"
+        android:textColor="@color/colorProfileText"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintStart_toEndOf="@+id/imageViewGroup3"
+        app:layout_constraintTop_toTopOf="@+id/imageViewGroup3" />
+
+    <TextView
+        android:id="@+id/group_profile_aboutTheTopic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxWidth="160dp"
+        android:maxHeight="50dp"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:layout_marginTop="@dimen/little_margin_top"
+        android:text="@string/default_profile_about"
+        android:textColor="@color/black"
+        android:textSize="@dimen/little_text_size"
+        app:layout_constraintStart_toEndOf="@+id/imageViewGroup3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGroup4" />
+
+    <ImageView
+        android:id="@+id/imageViewGroup1"
+        android:layout_width="@dimen/profile_default_image"
+        android:layout_height="@dimen/profile_default_image"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:layout_marginTop="@dimen/large_margin_top"
+        android:src="@drawable/direction"
+        app:layout_constraintStart_toStartOf="@+id/about_text_view_group"
+        app:layout_constraintTop_toBottomOf="@+id/about_bio_view_group" />
+
+    <ImageView
+        android:id="@+id/imageViewGroup2"
+        android:layout_width="@dimen/profile_default_image"
+        android:layout_height="@dimen/profile_default_image"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:layout_marginTop="@dimen/indent_profile"
+        android:src="@drawable/themes"
+        app:layout_constraintStart_toStartOf="@+id/about_text_view_group"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewGroup1" />
+
+    <ImageView
+        android:id="@+id/imageViewGroup3"
+        android:layout_width="@dimen/profile_default_image"
+        android:layout_height="@dimen/profile_default_image"
+        android:layout_marginStart="@dimen/large_margin_top"
+        android:layout_marginTop="@dimen/indent_profile"
+        android:src="@drawable/abouttopic"
+        app:layout_constraintStart_toStartOf="@+id/about_text_view_group"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewGroup2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

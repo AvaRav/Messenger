@@ -4,10 +4,12 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.saluslink.R
 import com.example.saluslink.ui.fragments.UsersFragment
 import com.example.saluslink.ui.fragments.message_list.MessageFragment
 import com.example.saluslink.ui.fragments.ProfileFragment
+import com.example.saluslink.ui.fragments.groups.GroupsFragment
 import com.example.saluslink.ui.fragments.settings.SettingsFragment
 import com.example.saluslink.utilits.APP_ACTIVITY
 import com.example.saluslink.utilits.downloadAndSetImage
@@ -90,6 +92,7 @@ class AppDrawer () {
         when(position){
             1 -> APP_ACTIVITY.replaceFragment(ProfileFragment())
             3 -> APP_ACTIVITY.replaceFragment(MessageFragment())
+            5 -> APP_ACTIVITY.replaceFragment(GroupsFragment())
             7 -> APP_ACTIVITY.replaceFragment(UsersFragment())
             11 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
         }

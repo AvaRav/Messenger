@@ -4,10 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.saluslink.R
 import com.example.saluslink.models.CommonModel
 import com.example.saluslink.ui.fragments.BaseFragment
-import com.example.saluslink.utilits.AppValueEventListener
-import com.example.saluslink.utilits.getCommonModel
-import com.example.saluslink.utilits.ref_database_root
-import com.example.saluslink.utilits.uid
+import com.example.saluslink.utilits.*
 
 class MessageFragment : BaseFragment(R.layout.fragment_message) {
 
@@ -27,27 +24,26 @@ class MessageFragment : BaseFragment(R.layout.fragment_message) {
     private fun initRecyclerView() {
         mRecyclerView = requireView().findViewById(R.id.message_list_recycle_view)
         mAdapter = MessageAdapter()
-        mRefMessageList.addListenerForSingleValueEvent(AppValueEventListener{
-            mListItems = it.children.map { it.getCommonModel() }
-            mListItems.forEach{model ->
-                mRefUser.child(model.id).addListenerForSingleValueEvent(AppValueEventListener{
-                    val newModel = it.getCommonModel()
-                    mRefMessages.child(model.id).limitToLast(1)
-                        .addListenerForSingleValueEvent(AppValueEventListener{
-                            val tempList = it.children.map { it.getCommonModel() }
+        mRefMessageList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
+            val tempList = dataSnapshot.children.map { it.getCommonModel() }
+            mListItems = tempList.filter { it.type == "chat" }
 
-                            if (tempList.isEmpty()){
-                                newModel.lastMessage = "Чат очищен"
-                            } else{
-                                newModel.lastMessage = tempList[0].text
-                            }
-                            mAdapter.updateListItems(newModel)
+            mListItems.forEach { chatModel ->
+                mRefUser.child(chatModel.id).addListenerForSingleValueEvent(AppValueEventListener { userSnapshot ->
+                    val newModel = userSnapshot.getCommonModel()
+                    mRefMessages.child(chatModel.id).limitToLast(1).addListenerForSingleValueEvent(AppValueEventListener { messagesSnapshot ->
+                        val messagesList = messagesSnapshot.children.map { it.getCommonModel() }
+                        if (messagesList.isEmpty()) {
+                            newModel.lastMessage = "Чат очищен"
+                        } else {
+                            newModel.lastMessage = messagesList[0].text
+                        }
+                        mAdapter.updateListItems(newModel)
                     })
                 })
             }
+
+            mRecyclerView.adapter = mAdapter
         })
-
-        mRecyclerView.adapter = mAdapter
-
     }
 }
