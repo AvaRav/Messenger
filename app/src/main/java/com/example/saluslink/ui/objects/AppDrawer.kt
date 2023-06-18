@@ -68,11 +68,6 @@ class AppDrawer () {
                 DividerDrawerItem(),
                 PrimaryDrawerItem()
                     .withIdentifier(104)
-                    .withName("Календарь")
-                    .withSelectable(false),
-                DividerDrawerItem(),
-                PrimaryDrawerItem()
-                    .withIdentifier(105)
                     .withName("Настройки")
                     .withSelectable(false),
                 DividerDrawerItem()
@@ -94,7 +89,7 @@ class AppDrawer () {
             3 -> APP_ACTIVITY.replaceFragment(MessageFragment())
             5 -> APP_ACTIVITY.replaceFragment(GroupsFragment())
             7 -> APP_ACTIVITY.replaceFragment(UsersFragment())
-            11 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
+            9 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
         }
     }
 
@@ -106,6 +101,7 @@ class AppDrawer () {
         mHeader = AccountHeaderBuilder()
             .withActivity(APP_ACTIVITY)
             .withHeaderBackground(R.drawable.header)
+            .withSelectionListEnabledForSingleProfile(false)
             .addProfiles(
                 mCurrentProfile
             ).build()

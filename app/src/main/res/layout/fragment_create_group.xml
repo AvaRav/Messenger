@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
+        android:id="@+id/create_group_image"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:src="@drawable/camera"
@@ -22,8 +22,8 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="20dp"
         android:hint="@string/title_group"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
-        app:layout_constraintStart_toStartOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/create_group_image"
+        app:layout_constraintStart_toStartOf="@id/create_group_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText

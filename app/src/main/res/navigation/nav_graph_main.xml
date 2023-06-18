@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/usersFragment">
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.saluslink.ui.fragments.UsersFragment"
+        android:label="fragment_message"
+        tools:layout="@layout/fragment_message" >
+        <action
+            android:id="@+id/action_usersFragment_to_singleChatFragment"
+            app:destination="@id/singleChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleChatFragment"
+        android:name="com.example.saluslink.ui.fragments.single_chat.SingleChatFragment"
+        android:label="fragment_single_chat"
+        tools:layout="@layout/fragment_single_chat" >
+        <action
+            android:id="@+id/action_singleChatFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/action_singleChatFragment_to_messageFragment2"
+            app:destination="@id/messageFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment2"
+        android:name="com.example.saluslink.ui.fragments.message_list.MessageFragment"
+        android:label="MessageFragment" >
+        <action
+            android:id="@+id/action_messageFragment2_to_singleChatFragment"
+            app:destination="@id/singleChatFragment" />
+    </fragment>
+</navigation>

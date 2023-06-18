@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.settings.ChangeAboutFragment">
+
+    <TextView
+        android:id="@+id/EnterDataGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_margin_top"
+        android:text="@string/enter_data_settings"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/settings_input_nameGroup"
+        style="@style/app_edit_text_style"
+        android:layout_marginTop="365dp"
+        android:hint="@string/title_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EnterDataGroup" />
+
+    <EditText
+        android:id="@+id/settings_input_direction"
+        style="@style/app_edit_text_style"
+        android:layout_marginTop="365dp"
+        android:hint="@string/change_direction_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_input_nameGroup" />
+
+    <EditText
+        android:id="@+id/settings_input_themes"
+        style="@style/app_edit_text_style"
+        android:layout_width="match_parent"
+        android:hint="@string/change_themes_hint"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_input_direction" />
+
+    <EditText
+        android:id="@+id/settings_input_aboutTheTopic"
+        style="@style/app_edit_text_style"
+        android:layout_width="match_parent"
+        android:hint="@string/change_aboutTheTopic_hint"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_input_themes" />
+
+    <ImageButton
+        android:id="@+id/ChangeAboutGroupButton"
+        style="@style/app_button_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settings_input_aboutTheTopic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_input_aboutTheTopic" />
+
+    <TextView
+        android:id="@+id/ChangeAboutGroupText"
+        android:text="@string/accept_text"
+        app:layout_constraintBottom_toBottomOf="@+id/ChangeAboutGroupButton"
+        app:layout_constraintEnd_toEndOf="@+id/ChangeAboutGroupButton"
+        app:layout_constraintStart_toStartOf="@+id/ChangeAboutGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/ChangeAboutGroupButton"
+        style="@style/app_button_text_style" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,5 +62,9 @@
     <dimen name="file_btn_size">55dp</dimen>
     <dimen name="progress_bar">50dp</dimen>
 
+    <!--MaterialDrawer-->
+    <dimen name="material_drawer_item_primary_text">20sp</dimen>
+    <dimen name="material_drawer_account_header_title">25sp</dimen>
+    <dimen name="material_drawer_item_primary">60dp</dimen>
 
 </resources>

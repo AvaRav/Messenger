@@ -19,12 +19,19 @@
 
     <TextView
         android:id="@+id/title_group"
-        style="@style/name_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/title_group"
+        style="@style/name_style"
         app:layout_constraintStart_toEndOf="@id/group_photo"
-        app:layout_constraintTop_toTopOf="@id/group_photo" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/direction"
+        style="@style/online_offline_style"
+        android:text="@string/default_direction_group"
+        app:layout_constraintStart_toEndOf="@id/group_photo"
+        app:layout_constraintTop_toBottomOf ="@id/title_group" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,7 @@ class GroupsAdapter : RecyclerView.Adapter<GroupsAdapter.GroupsListHolder> () {
 
     class GroupsListHolder(view: View): RecyclerView.ViewHolder(view) {
         val groupName: TextView = view.findViewById(R.id.title_group)
+        val groupDirection: TextView = view.findViewById(R.id.direction)
         val groupPhoto: CircleImageView = view.findViewById(R.id.group_photo)
     }
 
@@ -38,6 +39,7 @@ class GroupsAdapter : RecyclerView.Adapter<GroupsAdapter.GroupsListHolder> () {
 
     override fun onBindViewHolder(holder: GroupsListHolder, position: Int) {
         holder.groupName.text = listGroups[position].title
+        holder.groupDirection.text = listGroups[position].direction
         holder.groupPhoto.downloadAndSetImageForGroup(listGroups[position].photoUrl)
     }
 

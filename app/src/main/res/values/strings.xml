@@ -6,6 +6,7 @@
     <string name="default_name_group">Название группы</string>
     <string name="default_number">+79009182391</string>
     <string name="default_status_online">В сети</string>
+    <string name="default_direction_group">Раздел</string>
     <string name="settings_account">Аккаунт</string>
     <string name="settings_label_change_number">Нажмите чтобы изменить номер телефона</string>
     <string name="change_fio">Нажмите, чтобы изменить данные</string>
@@ -40,7 +41,7 @@
     <string name="change_working_hint">Место работы</string>
     <string name="change_aboutTheTopic_hint">О теме</string>
     <string name="change_themes_hint">Тема</string>
-    <string name="change_direction_hint">Направление</string>
+    <string name="change_direction_hint">Раздел</string>
     <string name="change_experience_hint">Опыт работы</string>
     <string name="enter_data_settings">Введите данные в поля ниже:</string>
     <string name="about_me_text">Обо мне</string>
@@ -51,4 +52,5 @@
     <string name="clear_chat">Очистить чат</string>
     <string name="delete_chat">Удалить чат</string>
     <string name="delete_group">Удалить группу</string>
+    <string name="change_group">Изменить данные группы</string>
 </resources>

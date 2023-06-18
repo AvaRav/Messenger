@@ -33,7 +33,7 @@ class CreateGroupFragment: BaseFragment(R.layout.fragment_create_group) {
         hideKeyboard()
         createGroupButton = requireView().findViewById(R.id.create_group)
         titleGroup = requireView().findViewById(R.id.title_group)
-        imageGroup = requireView().findViewById(R.id.imageView)
+        imageGroup = requireView().findViewById(R.id.create_group_image)
         directionGroup = requireView().findViewById(R.id.text_direction)
         themesGroup = requireView().findViewById(R.id.text_themes)
         aboutTheTopicGroup = requireView().findViewById(R.id.text_aboutTheTopic)

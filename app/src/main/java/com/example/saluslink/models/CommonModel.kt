@@ -11,6 +11,9 @@ data class CommonModel(
     var education: String = "",
     var experience: String = "",
     var photoUrl: String = "empty",
+    var direction: String = "",
+    var themes: String = "",
+    var aboutTheTopic: String = "",
 
     var text: String = "",
     var type: String = "",

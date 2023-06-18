@@ -17,7 +17,6 @@ class GroupsFragment: BaseFragment(R.layout.fragment_groups) {
     private lateinit var createGroup: Button
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: GroupsAdapter
-    private var groupList = mutableListOf<Group>()
 
     private val mRefGroups = ref_database_root.child("groups")
     private var mListGroups = listOf<CommonModel>()
@@ -29,7 +28,7 @@ class GroupsFragment: BaseFragment(R.layout.fragment_groups) {
         initRecyclerView()
         createGroup = view.findViewById(R.id.create_group_button)
         createGroup.setOnClickListener {
-            replaceFragment(CreateGroupFragment(), false)
+            replaceFragment(CreateGroupFragment(), true)
         }
     }
 
