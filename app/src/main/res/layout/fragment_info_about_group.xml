@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.settings.ChangeAboutFragment">
+    tools:context="com.example.saluslink.viewModels.GroupInfoViewModel">
 
     <TextView
         android:id="@+id/EnterDataGroup"
@@ -73,6 +73,5 @@
         app:layout_constraintStart_toStartOf="@+id/ChangeAboutGroupButton"
         app:layout_constraintTop_toTopOf="@+id/ChangeAboutGroupButton"
         style="@style/app_button_text_style" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

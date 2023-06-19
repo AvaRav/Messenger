@@ -5,7 +5,6 @@ import android.util.Log
 import com.example.saluslink.models.CommonModel
 import com.example.saluslink.models.Group
 import com.example.saluslink.models.User
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
