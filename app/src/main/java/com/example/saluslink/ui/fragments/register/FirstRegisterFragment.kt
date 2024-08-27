@@ -18,6 +18,7 @@ class FirstRegisterFragment : Fragment(R.layout.fragment_first_register) {
     override fun onStart() {
         super.onStart()
 
+        // Инициализация полей ввода и кнопок
         email = requireView().findViewById(R.id.reg_email)
         password = requireView().findViewById(R.id.reg_password)
         resume = requireView().findViewById(R.id.FurtherButton)
@@ -25,36 +26,42 @@ class FirstRegisterFragment : Fragment(R.layout.fragment_first_register) {
 
         auth = FirebaseAuth.getInstance()
 
+        // Обработчик нажатия на поле ввода email
         email.setOnClickListener {
             showToast("Формат адреса электронной почты: user@gmail.com")
         }
 
+        // Обработчик нажатия на поле ввода пароля
         password.setOnClickListener {
             showToast("Пароль должен содержать не менее 6 символов!")
         }
 
+        // Обработчик нажатия на кнопку продолжения
         resume.setOnClickListener {
             signUser()
         }
     }
 
     private fun signUser() {
+        // Получение введенных значений email и пароля
         val email = email.text.toString().trim()
         val password = password.text.toString().trim()
         val checkPassword = checkPassword.text.toString().trim()
 
-        if (email.isEmpty() || password.isEmpty() || checkPassword.isEmpty())
+        if (email.isEmpty() || password.isEmpty() || checkPassword.isEmpty()) {
             showToast("Введите данные для регистрации!")
+        }
 
-
-        if (password != checkPassword)
+        if (password != checkPassword) {
             showToast("Пароли не совпадают!")
+        }
 
-        if (email.isNotEmpty() && password.isNotEmpty() && password == checkPassword)
-        {
+        if (email.isNotEmpty() && password.isNotEmpty() && password == checkPassword) {
+            // Создание нового пользователя с помощью email и пароля
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
+                        // Регистрация пользователя в Firestore базе данных
                         val db = FirebaseFirestore.getInstance()
                         val currentUser = FirebaseAuth.getInstance().currentUser
                         currentUser?.let { user ->

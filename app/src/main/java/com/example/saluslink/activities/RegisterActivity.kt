@@ -8,10 +8,15 @@ import com.example.saluslink.utilits.initFirebase
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityRegisterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Инфлейтинг разметки активити с помощью ViewBinding
         mBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        // Инициализация Firebase
         initFirebase()
     }
 }

@@ -20,6 +20,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         super.onResume()
         setHasOptionsMenu(true)
 
+        // Инициализация элементов интерфейса
         val name = requireView().findViewById<TextView>(R.id.settings_name)
         val change_name = requireView().findViewById<TextView>(R.id.settings_fio)
         val status = requireView().findViewById<TextView>(R.id.settings_text_online_offline)
@@ -28,19 +29,23 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         val changeAboutButton = view?.findViewById<ConstraintLayout>(R.id.settings_btn_change_about)
         val ChangePhotoButton = requireView().findViewById<ConstraintLayout>(R.id.settings_btn_change_photo)
 
+        // Установка текста и изображения на основе данных пользователя
         name.text = user.name
         change_name.text = user.name + " " + user.surname
         status.text = user.status
         photo.downloadAndSetImage(user.photoUrl)
 
+        // Обработчик нажатия на кнопку изменения фотографии пользователя
         ChangePhotoButton?.setOnClickListener{
             changeUserPhoto()
         }
 
+        // Обработчик нажатия на кнопку изменения имени и фамилии пользователя
         changeNameButton?.setOnClickListener{
             replaceFragment(ChangeNameFragment(), true)
         }
 
+        // Обработчик нажатия на кнопку изменения о себе
         changeAboutButton?.setOnClickListener{
             replaceFragment(ChangeAboutFragment(), true)
         }
@@ -55,12 +60,14 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Создание меню в верхнем правом углу
         activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings_menu_exit -> {
+                // Обработчик нажатия на пункт меню "Выход"
                 AppStates.updateState(uid, AppStates.OFFLINE)
 
                 auth.signOut()
@@ -73,12 +80,16 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            // Получение обрезанного изображения
             val uri = CropImage.getActivityResult(data).uri
             val path = ref_storage_root.child(folder_profile_image).child(uid)
             val photo = requireView().findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.settings_user_photo)
 
+            // Загрузка изображения в хранилище Firebase Storage
             putFileToStorage(uri, path){
+                // Получение URL-адреса загруженного изображения
                 getUrlFromStorage(path){
+                    // Обновление URL-адреса изображения в базе данных
                     putUrlToDatabase(it){
                         photo.downloadAndSetImage(it)
                         user.photoUrl = it

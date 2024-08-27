@@ -2,7 +2,6 @@ package com.example.saluslink.ui.fragments.single_chat
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
@@ -13,7 +12,6 @@ import com.example.saluslink.models.CommonModel
 import com.example.saluslink.models.Group
 import com.example.saluslink.ui.fragments.BaseFragment
 import com.example.saluslink.ui.fragments.GroupProfileFragment
-import com.example.saluslink.ui.fragments.UserProfileFragment
 import com.example.saluslink.ui.fragments.groups.GroupsFragment
 import com.example.saluslink.ui.message_recycler_view.views.AppViewFactory
 import com.example.saluslink.utilits.*
@@ -24,6 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class GroupsChatFragment(private val groups: CommonModel) : BaseFragment(R.layout.fragment_groups_chat) {
 
+    // Поля фрагмента
     private lateinit var mListenerInfoHeader: AppValueEventListener
     private lateinit var mReceivingGroup: Group
     private lateinit var mHeaderInfo: View
@@ -44,6 +43,7 @@ class GroupsChatFragment(private val groups: CommonModel) : BaseFragment(R.layou
         initRecycleView()
     }
 
+    // Инициализация полей фрагмента
     @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
         setHasOptionsMenu(true)
@@ -69,12 +69,14 @@ class GroupsChatFragment(private val groups: CommonModel) : BaseFragment(R.layou
         }
     }
 
+    // Показывает всплывающую панель для выбора вложений
     private fun attach() {
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         requireView().findViewById<ImageView>(R.id.btn_attach_file).setOnClickListener { attachFile() }
         requireView().findViewById<ImageView>(R.id.btn_attach_image).setOnClickListener { attachImage() }
     }
 
+    // Обработчик выбора вложения типа файл
     private fun attachFile(){
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
@@ -82,6 +84,7 @@ class GroupsChatFragment(private val groups: CommonModel) : BaseFragment(R.layou
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
+    // Обработчик выбора вложения типа изображение
     private fun attachImage() {
         CropImage.activity()
             .setAspectRatio(1,1)
@@ -90,6 +93,7 @@ class GroupsChatFragment(private val groups: CommonModel) : BaseFragment(R.layou
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
+    // Инициализация RecyclerView для отображения сообщений
     private fun initRecycleView() {
         mRecyclerView = requireView().findViewById(R.id.group_recycler_view)
         mAdapter = SingleChatAdapter(true)
@@ -110,6 +114,7 @@ class GroupsChatFragment(private val groups: CommonModel) : BaseFragment(R.layou
         mRefMessages.limitToLast(mCountMessages).addChildEventListener(mMessagesListener)
     }
 
+    // Инициализация заголовка чата
     private fun initHeader() {
         mHeaderInfo = requireView().findViewById(R.id.group_message_header_block)
         mListenerInfoHeader = AppValueEventListener {
@@ -131,8 +136,9 @@ class GroupsChatFragment(private val groups: CommonModel) : BaseFragment(R.layou
         }
     }
 
+    // Инициализация информации в заголовке чата
     private fun initInfoHeader() {
-        mHeaderInfo.findViewById<CircleImageView>(R.id.group_photo).downloadAndSetImageForGroup(mReceivingGroup.photoUrl)
+        mHeaderInfo.findViewById<CircleImageView>(R.id.group_photo).downloadAndSetImage(mReceivingGroup.photoUrl)
         mHeaderInfo.findViewById<TextView>(R.id.title_group).text = mReceivingGroup.title
     }
 

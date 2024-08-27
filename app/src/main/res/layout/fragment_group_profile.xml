@@ -146,7 +146,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxWidth="160dp"
-        android:maxHeight="50dp"
+        android:maxHeight="100dp"
         android:layout_marginStart="@dimen/large_margin_top"
         android:layout_marginTop="@dimen/little_margin_top"
         android:text="@string/default_profile_about"

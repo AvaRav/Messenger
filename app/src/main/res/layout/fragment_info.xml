@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.register.InfoFragment"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/SalusLink_style"
+        android:text="@string/app_name"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/programmers"
+        style="@style/SalusLink_style"
+        android:layout_marginTop="@dimen/max_large_margin_top"
+        android:maxWidth="400dp"
+        android:text="@string/app_programmers"
+        android:textSize="@dimen/registration_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/photo1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/irina"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/programmers" />
+
+    <TextView
+        android:id="@+id/name1"
+        style="@style/SalusLink_style"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:maxWidth="200dp"
+        android:text="@string/irina"
+        android:textSize="23sp"
+        app:layout_constraintStart_toEndOf="@+id/photo1"
+        app:layout_constraintTop_toTopOf="@+id/photo1" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/photo2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/klava"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photo1"/>
+
+    <TextView
+        android:id="@+id/name2"
+        style="@style/SalusLink_style"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:maxWidth="200dp"
+        android:text="@string/klava"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/photo2"
+        app:layout_constraintTop_toTopOf="@+id/photo2"/>
+
+    <TextView
+        android:id="@+id/about_education"
+        style="@style/SalusLink_style"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:maxWidth="400dp"
+        android:text="@string/about_education"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photo2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

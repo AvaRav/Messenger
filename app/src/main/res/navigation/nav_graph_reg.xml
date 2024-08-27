@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_enterFragment_to_firstRegisterFragment4"
             app:destination="@id/firstRegisterFragment" />
+        <action
+            android:id="@+id/action_enterFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
     </fragment>
     <fragment
         android:id="@+id/firstRegisterFragment"
@@ -29,6 +32,15 @@
         tools:layout="@layout/fragment_second_register" >
         <action
             android:id="@+id/action_secondRegisterFragment_to_enterFragment"
+            app:destination="@id/enterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.saluslink.ui.fragments.register.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" >
+        <action
+            android:id="@+id/action_infoFragment_to_enterFragment"
             app:destination="@id/enterFragment" />
     </fragment>
 

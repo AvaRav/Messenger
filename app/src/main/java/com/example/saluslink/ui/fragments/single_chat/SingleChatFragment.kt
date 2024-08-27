@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 
 class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
 
+    // Объявление переменных
     private lateinit var mListenerInfoHeader: AppValueEventListener
     private lateinit var mReceivingUser: User
     private lateinit var mHeaderInfo: View
@@ -43,6 +44,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
     private lateinit var mAppVoiceRecorder: AppVoiceRecorder
     private lateinit var mBottomSheetBehavior: BottomSheetBehavior<*>
 
+    // Этот метод вызывается при возобновлении фрагмента
     override fun onResume() {
         super.onResume()
         initFields()
@@ -50,14 +52,19 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         initRecycleView()
     }
 
+    // Инициализация полей представлений и установка слушателей
     @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
         setHasOptionsMenu(true)
         mBottomSheetBehavior = BottomSheetBehavior.from(requireView().findViewById(R.id.bottom_sheet_choice))
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         mAppVoiceRecorder = AppVoiceRecorder()
+
+        // Установка слушателя изменения текста для поля ввода сообщения
         requireView().findViewById<EditText>(R.id.chat_input_message).addTextChangedListener(AppTextWatcher{
             val string = requireView().findViewById<EditText>(R.id.chat_input_message).text.toString()
+
+            // Если сообщение пустое или равно "Идет запись..." (идет запись голоса), скрыть/отобразить кнопки
             if (string.isEmpty() || string == "Идет запись..."){
                 requireView().findViewById<ImageView>(R.id.chat_btn_send_message).visibility = View.GONE
                 requireView().findViewById<ImageView>(R.id.chat_btn_attach).visibility = View.VISIBLE
@@ -68,11 +75,15 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
                 requireView().findViewById<ImageView>(R.id.chat_btn_voice).visibility = View.GONE
             }
         })
+
+        // Установка слушателя нажатия для кнопки прикрепления
         requireView().findViewById<ImageView>(R.id.chat_btn_attach).setOnClickListener {
+            // Логика обработки нажатия кнопки прикрепления
             attach()
         }
 
         CoroutineScope(Dispatchers.IO).launch {
+            // Установка слушателя касания для кнопки голосового сообщения
             requireView().findViewById<ImageView>(R.id.chat_btn_voice).setOnTouchListener { v, event ->
                 if (checkPermission(RECORD_AUDIO)){
                     if (event.action == MotionEvent.ACTION_DOWN){
@@ -95,17 +106,22 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
             }
         }
 
+        // Установка слушателя нажатия для фотографии пользователя
         requireView().findViewById<ImageView>(R.id.user_photo).setOnClickListener {
             APP_ACTIVITY.replaceFragment(UserProfileFragment(model))
         }
     }
 
+    // Обработка нажатия кнопки прикрепления
     private fun attach() {
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        // Установка слушателя нажатия для кнопки прикрепления файла
         requireView().findViewById<ImageView>(R.id.btn_attach_file).setOnClickListener { attachFile() }
+        // Установка слушателя нажатия для кнопки прикрепления изображения
         requireView().findViewById<ImageView>(R.id.btn_attach_image).setOnClickListener { attachImage() }
     }
 
+    // Обработка прикрепления файла
     private fun attachFile(){
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
@@ -113,14 +129,17 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
+    // Обработка прикрепления изображения
     private fun attachImage() {
         CropImage.activity()
             .setAspectRatio(1,1)
             .setRequestedSize(300, 300)
             .start(APP_ACTIVITY, this)
-            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
+
+    // Инициализация RecyclerView и адаптера
     private fun initRecycleView() {
         mRecyclerView = requireView().findViewById(R.id.chat_recycler_view)
         mAdapter = SingleChatAdapter(false)
@@ -156,6 +175,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         })
     }
 
+    // Обновление данных RecyclerView при прокрутке вверх
     private fun updateData() {
         mSmoothScrollToPosition = false
         mIsScrolling = false
@@ -164,6 +184,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         mRefMessages.limitToLast(mCountMessages).addChildEventListener(mMessagesListener)
     }
 
+    // Инициализация информационного заголовка
     private fun initHeader() {
         mHeaderInfo = requireView().findViewById(R.id.message_header_block)
         mListenerInfoHeader = AppValueEventListener {
@@ -173,6 +194,7 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         mRefUser = ref_database_root.child("users").child(model.id)
         mRefUser.addValueEventListener(mListenerInfoHeader)
 
+        // Установка слушателя нажатия для кнопки отправки сообщения
         requireView().findViewById<ImageView>(R.id.chat_btn_send_message).setOnClickListener {
             mSmoothScrollToPosition = true
             val message =
@@ -186,11 +208,13 @@ class SingleChatFragment(private val model: CommonModel) : BaseFragment(R.layout
         }
     }
 
+    // Инициализация информационного заголовка чата
     private fun initInfoHeader() {
         mHeaderInfo.findViewById<ImageView>(R.id.user_photo).downloadAndSetImage(mReceivingUser.photoUrl)
         mHeaderInfo.findViewById<TextView>(R.id.user_name).text = mReceivingUser.fullname
         mHeaderInfo.findViewById<TextView>(R.id.message_text_online_offline).text = mReceivingUser.status
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -21,38 +21,44 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.File
 
-class HolderFileMessage(view: View, private val isGroupChat: Boolean) : RecyclerView.ViewHolder(view), MessageHolderInterface{
+class HolderFileMessage(view: View, private val isGroupChat: Boolean) : RecyclerView.ViewHolder(view), MessageHolderInterface {
+    // Views для сообщений с файлами пользователя
     private val blockUserFile: ConstraintLayout = view.findViewById(R.id.block_user_file_message)
     private val chatUserFileMessageTime: TextView = view.findViewById(R.id.chat_user_file_message_time)
     private val chatUserFilename: TextView = view.findViewById(R.id.chat_user_file_name)
     private val chatUserBtnDownload: ImageView = view.findViewById(R.id.chat_user_btn_download)
     private val chatUserProgressBar: ProgressBar = view.findViewById(R.id.user_progressBar)
 
+    // Views для полученных файлов
     private val blockReceivedFile: ConstraintLayout = view.findViewById(R.id.block_received_file_message)
     private val chatReceivedFileMessageTime: TextView = view.findViewById(R.id.chat_received_file_message_time)
     private val chatReceivedFilename: TextView = view.findViewById(R.id.chat_received_file_name)
     private val chatReceivedBtnDownload: ImageView = view.findViewById(R.id.chat_received_btn_download)
     private val chatReceivedProgressBar: ProgressBar = view.findViewById(R.id.received_progressBar)
 
+    // Views для полученных файлов в групповом чате
     private val groupBlockReceivedFile: ConstraintLayout = view.findViewById(R.id.group_block_received_file_message)
     private val groupChatReceivedFileMessageTime: TextView = view.findViewById(R.id.group_chat_received_file_message_time)
     private val groupChatReceivedFilename: TextView = view.findViewById(R.id.group_chat_received_file_name)
     private val groupChatReceivedBtnDownload: ImageView = view.findViewById(R.id.group_chat_received_btn_download)
     private val groupChatReceivedProgressBar: ProgressBar = view.findViewById(R.id.group_received_progressBar)
 
+    // Views для фотографии и имени пользователя в групповом чате
     private val groupUserPhoto: CircleImageView = view.findViewById(R.id.photo_group_chat)
     private val groupUserName: TextView = view.findViewById(R.id.name_group_chat)
 
     override fun drawMessage(view: MessageView) {
-        if (view.from == uid){
+        if (view.from == uid) {
+            // Отображение сообщений с файлами пользователя
             blockReceivedFile.visibility = View.GONE
             blockUserFile.visibility = View.VISIBLE
             groupBlockReceivedFile.visibility = View.GONE
             groupUserPhoto.visibility = View.GONE
             chatUserFileMessageTime.text = view.timeStamp.asTime()
             chatUserFilename.text = view.text
-        } else{
+        } else {
             if (isGroupChat) {
+                // Отображение полученных файлов в групповом чате
                 receivePhotoAndName(view)
                 groupBlockReceivedFile.visibility = View.VISIBLE
                 blockReceivedFile.visibility = View.GONE
@@ -61,6 +67,7 @@ class HolderFileMessage(view: View, private val isGroupChat: Boolean) : Recycler
                 groupChatReceivedFileMessageTime.text = view.timeStamp.asTime()
                 groupChatReceivedFilename.text = view.text
             } else {
+                // Отображение полученных файлов в приватном чате
                 blockReceivedFile.visibility = View.VISIBLE
                 blockUserFile.visibility = View.GONE
                 groupBlockReceivedFile.visibility = View.GONE
@@ -72,6 +79,7 @@ class HolderFileMessage(view: View, private val isGroupChat: Boolean) : Recycler
     }
 
     fun goToProfileUser(userProfile: CommonModel) {
+        // Переход на профиль пользователя при нажатии на его фотографию в групповом чате
         groupUserPhoto.setOnClickListener {
             APP_ACTIVITY.replaceFragment(UserProfileFragment(userProfile))
         }
@@ -79,6 +87,7 @@ class HolderFileMessage(view: View, private val isGroupChat: Boolean) : Recycler
 
     fun receivePhotoAndName(view: MessageView) {
         if (view.from != uid) {
+            // Получение фотографии и имени отправителя в групповом чате
             val database: FirebaseDatabase = FirebaseDatabase.getInstance()
             val userId = view.from
             val userRef = database.reference.child("users").child(userId)
@@ -111,7 +120,8 @@ class HolderFileMessage(view: View, private val isGroupChat: Boolean) : Recycler
                         workplace ?: "",
                         education ?: "",
                         experience ?: "",
-                        photoUrl ?: "")
+                        photoUrl ?: ""
+                    )
 
                     goToProfileUser(userProfile)
 
@@ -121,20 +131,29 @@ class HolderFileMessage(view: View, private val isGroupChat: Boolean) : Recycler
     }
 
     override fun onAttach(view: MessageView) {
-        if (view.from == uid) chatUserBtnDownload.setOnClickListener { clickToBtnFile(view) }
-        else {
-            if (isGroupChat) groupChatReceivedBtnDownload.setOnClickListener { clickToBtnFile(view) }
-            else chatReceivedBtnDownload.setOnClickListener { clickToBtnFile(view) }
+        if (view.from == uid) {
+            // Обработка нажатия кнопки загрузки файла пользователя
+            chatUserBtnDownload.setOnClickListener { clickToBtnFile(view) }
+        } else {
+            if (isGroupChat) {
+                // Обработка нажатия кнопки загрузки файла в групповом чате
+                groupChatReceivedBtnDownload.setOnClickListener { clickToBtnFile(view) }
+            } else {
+                // Обработка нажатия кнопки загрузки файла в приватном чате
+                chatReceivedBtnDownload.setOnClickListener { clickToBtnFile(view) }
+            }
         }
     }
 
     private fun clickToBtnFile(view: MessageView) {
-        if (view.from == uid){
+        if (view.from == uid) {
             chatUserProgressBar.visibility = View.VISIBLE
-        }
-        else {
-            if (isGroupChat) groupChatReceivedProgressBar.visibility = View.VISIBLE
-            else chatReceivedProgressBar.visibility = View.VISIBLE
+        } else {
+            if (isGroupChat) {
+                groupChatReceivedProgressBar.visibility = View.VISIBLE
+            } else {
+                chatReceivedProgressBar.visibility = View.VISIBLE
+            }
         }
 
         val file = File(
@@ -143,25 +162,28 @@ class HolderFileMessage(view: View, private val isGroupChat: Boolean) : Recycler
         )
 
         try {
-            if (checkPermission(WRITE_FILES)){
+            if (checkPermission(WRITE_FILES)) {
                 file.createNewFile()
-                getFileFromStorage(file, view.fileUrl){
+                getFileFromStorage(file, view.fileUrl) {
                     if (view.from == uid) {
                         chatUserProgressBar.visibility = View.INVISIBLE
-                    }
-                    else {
-                        if (isGroupChat) groupChatReceivedProgressBar.visibility = View.INVISIBLE
-                        else chatReceivedProgressBar.visibility = View.INVISIBLE
+                    } else {
+                        if (isGroupChat) {
+                            groupChatReceivedProgressBar.visibility = View.INVISIBLE
+                        } else {
+                            chatReceivedProgressBar.visibility = View.INVISIBLE
+                        }
                     }
                 }
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             showToast("Не удалось скачать файл")
         }
 
     }
 
     override fun onDetach() {
+        // Отсоединение обработчиков нажатий кнопок загрузки файла
         chatUserBtnDownload.setOnClickListener(null)
         chatReceivedBtnDownload.setOnClickListener(null)
         groupChatReceivedBtnDownload.setOnClickListener(null)

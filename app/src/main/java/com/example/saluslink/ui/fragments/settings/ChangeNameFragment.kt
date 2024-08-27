@@ -10,13 +10,16 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
 
+        // Инициализация полей ввода и кнопки
         val name = requireView().findViewById<EditText>(R.id.settings_input_name)
         val surname = requireView().findViewById<EditText>(R.id.settings_input_surname)
         val changeNameSurnameButton = view?.findViewById<ImageButton>(R.id.ChangeSurnameNameButton)
 
+        // Установка текста в поля ввода на основе данных пользователя
         name.setText(user.name)
         surname.setText(user.surname)
 
+        // Обработчик нажатия на кнопку изменения имени и фамилии
         changeNameSurnameButton?.setOnClickListener{
             changeNameSurname()
         }
@@ -28,12 +31,15 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     }
 
     private fun changeNameSurname() {
+        // Получение новых значений имени и фамилии из полей ввода
         val name = requireView().findViewById<EditText>(R.id.settings_input_name).text.toString().trim()
         val surname = requireView().findViewById<EditText>(R.id.settings_input_surname).text.toString().trim()
 
+        // Проверка, заполнены ли оба поля
         if (name.isEmpty() && surname.isEmpty()){
             showToast(getString(R.string.fill_in_all_fields))
         } else{
+            // Изменение имени пользователя в базе данных
             ref_database_root.child("users").child(uid).child("name").setValue(name).addOnCompleteListener{
                 if (it.isSuccessful){
                     user.name = name
@@ -41,6 +47,7 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
                 }
             }
 
+            // Изменение фамилии пользователя в базе данных
             ref_database_root.child("users").child(uid).child("surname").setValue(surname).addOnCompleteListener {
                 if (it.isSuccessful){
                     user.surname = surname
@@ -49,6 +56,7 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
                 }
             }
 
+            // Изменение полного имени пользователя в базе данных
             ref_database_root.child("users").child(uid).child("fullname").setValue(name + " " + surname).addOnCompleteListener {
                 if (it.isSuccessful){
                     user.fullname = name + " " + surname

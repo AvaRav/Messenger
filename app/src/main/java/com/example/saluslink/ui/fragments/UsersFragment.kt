@@ -34,6 +34,8 @@ class UsersFragment : BaseFragment(R.layout.fragment_users) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Настройка функционала поиска
         val searchEditText = view.findViewById<EditText>(R.id.search_edit_text)
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -41,13 +43,15 @@ class UsersFragment : BaseFragment(R.layout.fragment_users) {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val searchText = s.toString().trim()
                 if (searchText.isEmpty()) {
+                    // Если поле поиска пустое, запросить всех пользователей по их статусу
                     val query = ref_database_root.child("users")
                         .orderByChild("status")
                         .limitToFirst(30)
                     updateAdapter(query)
                 } else {
+                    // Если есть текст поиска, запросить пользователей по их полному имени (в будущем изменить на полное имя)
                     val query = ref_database_root.child("users")
-                        .orderByChild("fullname") // Изменить на fullname в дальнейшем
+                        .orderByChild("fullname")
                         .startAt(searchText)
                         .endAt(searchText + "\uf8ff")
                     updateAdapter(query)
@@ -63,6 +67,7 @@ class UsersFragment : BaseFragment(R.layout.fragment_users) {
             .setQuery(query, CommonModel::class.java)
             .build()
 
+        // Обновление адаптера с новыми опциями запроса
         mAdapter.updateOptions(options)
         mAdapter.notifyDataSetChanged()
     }
@@ -81,23 +86,26 @@ class UsersFragment : BaseFragment(R.layout.fragment_users) {
 
         mAdapter = object : FirebaseRecyclerAdapter<CommonModel, UsersHolder>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersHolder {
+                // Создание макета user_item для каждого элемента в RecyclerView
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
                 return UsersHolder(view)
             }
 
             @SuppressLint("SetTextI18n")
             override fun onBindViewHolder(holder: UsersHolder, position: Int, model: CommonModel) {
+                // Привязка данных к ViewHolder
                 holder.name.text = model.name + " " + model.surname
                 holder.status.text = model.status
                 holder.photo.downloadAndSetImage(model.photoUrl)
 
+                // Установка слушателя нажатия на элемент для открытия SingleChatFragment
                 holder.itemView.setOnClickListener{
                     APP_ACTIVITY.replaceFragment(SingleChatFragment(model))
                 }
             }
 
             override fun onError(databaseError: DatabaseError) {
-                Log.e("FirebaseRecyclerAdapter", "Error occurred: ${databaseError.message}")
+                Log.e("FirebaseRecyclerAdapter", "Произошла ошибка: ${databaseError.message}")
             }
         }
 
@@ -106,7 +114,7 @@ class UsersFragment : BaseFragment(R.layout.fragment_users) {
     }
 
     class UsersHolder(view: View) : RecyclerView.ViewHolder(view) {
-
+        // Класс ViewHolder для кэширования ссылок на виджеты
         val name: TextView = view.findViewById(R.id.friend_name)
         val status: TextView = view.findViewById(R.id.status)
         val photo: CircleImageView = view.findViewById(R.id.friend_photo)
@@ -114,6 +122,7 @@ class UsersFragment : BaseFragment(R.layout.fragment_users) {
 
     override fun onPause() {
         super.onPause()
+        // Прекратить прослушивание обновлений FirebaseRecyclerAdapter
         mAdapter.stopListening()
     }
 }

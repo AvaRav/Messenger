@@ -53,4 +53,8 @@
     <string name="delete_chat">Удалить чат</string>
     <string name="delete_group">Удалить группу</string>
     <string name="change_group">Изменить данные группы</string>
+    <string name="app_programmers">Приложение разработали:</string>
+    <string name="irina">Александрова Ирина Андреевна</string>
+    <string name="klava">Журавлёва Клавдия Алексеевна</string>
+    <string name="about_education">Студентки ВШИТиAС САФУ\nНаправление:01.03.02\nгруппа:351012</string>
 </resources>

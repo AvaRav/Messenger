@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.saluslink.R
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,17 +48,6 @@ fun hideKeyboard(){
 }
 
 fun ImageView.downloadAndSetImage(url:String?){
-    if (!url.isNullOrEmpty()) {
-        Picasso.get()
-            .load(url)
-            .placeholder(R.drawable.doctor)
-            .into(this)
-    } else {
-        setImageResource(R.drawable.doctor)
-    }
-}
-
-fun ImageView.downloadAndSetImageForGroup(url:String?){
     if (!url.isNullOrEmpty()) {
         Picasso.get()
             .load(url)

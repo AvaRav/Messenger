@@ -41,16 +41,19 @@ class CreateGroupFragment : Fragment() {
         setupListeners()
     }
 
+    // Установка визуальных компонентов
     private fun setupViews() {
         binding.createGroupButton.text = getString(R.string.create_group)
         binding.titleGroup.requestFocus()
     }
 
+    // Установка слушателей событий
     private fun setupListeners() {
         binding.createGroupImage.setOnClickListener { addImage() }
         binding.createGroupButton.setOnClickListener { createGroup() }
     }
 
+    // Обработка результата выбора изображения
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE &&
@@ -61,6 +64,7 @@ class CreateGroupFragment : Fragment() {
         }
     }
 
+    // Добавление изображения группы
     private fun addImage() {
         CropImage.activity()
             .setAspectRatio(1, 1)
@@ -69,19 +73,23 @@ class CreateGroupFragment : Fragment() {
             .start(requireActivity(), this)
     }
 
+    // Создание группы
     private fun createGroup() {
         val titleGroup = binding.titleGroup.text.toString()
         val directionGroup = binding.directionGroup.text.toString()
         val themesGroup = binding.themesGroup.text.toString()
         val aboutTheTopicGroup = binding.aboutTheTopicGroup.text.toString()
 
+        // Проверка обязательных полей
         if (titleGroup.isEmpty() || directionGroup.isEmpty() || themesGroup.isEmpty()) {
             showToast("Введите данные для создания группы. Обязательные: название, направление, тема!")
         } else {
+            // Создание экземпляра группы
             val group = Group(title = titleGroup, direction = directionGroup, themes = themesGroup, aboutTheTopic = aboutTheTopicGroup)
             viewModel.createGroup(group, gUri)
         }
 
+        // Обработка события успешного создания группы
         viewModel.groupCreated.observe(viewLifecycleOwner) { groupCreated ->
             if (groupCreated) {
                 replaceFragment(GroupsFragment(), false)
@@ -89,7 +97,7 @@ class CreateGroupFragment : Fragment() {
         }
     }
 
-
+    // Очистка привязки ViewBinding при уничтожении фрагмента
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

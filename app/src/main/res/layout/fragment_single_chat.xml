@@ -29,7 +29,7 @@
             android:layout_width="@dimen/message_profile_image_size"
             android:layout_height="@dimen/message_profile_image_size"
             android:layout_marginStart="@dimen/horizontal_margin"
-            android:src="@drawable/doctor"
+            android:src="@drawable/camera"
             app:civ_border_color="@color/colorBorder"
             app:civ_border_width="@dimen/border_width"
             app:layout_constraintBottom_toBottomOf="parent"

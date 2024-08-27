@@ -24,15 +24,20 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.MessageListHolder>() 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageListHolder {
-       val view = LayoutInflater.from(parent.context).inflate(R.layout.message_list_item, parent, false)
+        // Создание ViewHolder для элемента списка сообщений
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.message_list_item, parent, false)
         val holder = MessageListHolder(view)
+
+        // Установка обработчика нажатия на элемент списка, который открывает фрагмент SingleChatFragment для выбранного чата
         holder.itemView.setOnClickListener {
             APP_ACTIVITY.replaceFragment(SingleChatFragment(listItems[holder.adapterPosition]))
         }
+
         return holder
     }
 
     override fun onBindViewHolder(holder: MessageListHolder, position: Int) {
+        // Заполнение элемента списка данными из модели
         holder.itemName.text = listItems[position].fullname
         holder.itemLastMessage.text = listItems[position].lastMessage
         holder.itemPhoto.downloadAndSetImage(listItems[position].photoUrl)
@@ -40,6 +45,7 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.MessageListHolder>() 
 
     override fun getItemCount(): Int = listItems.size
 
+    // Метод для обновления списка сообщений
     fun updateListItems(item: CommonModel){
         listItems.add(item)
         notifyItemInserted(listItems.size)

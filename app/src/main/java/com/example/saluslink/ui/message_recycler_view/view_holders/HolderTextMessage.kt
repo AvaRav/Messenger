@@ -18,32 +18,39 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-class HolderTextMessage(view:View, private val isGroupChat: Boolean):RecyclerView.ViewHolder(view), MessageHolderInterface{
+class HolderTextMessage(view: View, private val isGroupChat: Boolean) : RecyclerView.ViewHolder(view), MessageHolderInterface {
+    // Представления (Views) для отображения текстовых сообщений в пользовательском чате
     private val blockUserMessage: ConstraintLayout = view.findViewById(R.id.block_user_message)
     private val chatUserMessage: TextView = view.findViewById(R.id.chat_user_message)
     private val chatUserMessageTime: TextView = view.findViewById(R.id.chat_user_message_time)
 
+    // Представления (Views) для отображения полученных текстовых сообщений в пользовательском чате
     private val blockReceivedMessage: ConstraintLayout = view.findViewById(R.id.block_received_message)
     private val chatReceivedMessage: TextView = view.findViewById(R.id.chat_received_message)
     private val chatReceivedMessageTime: TextView = view.findViewById(R.id.chat_received_message_time)
 
+    // Представления (Views) для отображения полученных текстовых сообщений в групповом чате
     private val groupBlockReceivedMessage: ConstraintLayout = view.findViewById(R.id.group_block_received_message)
     private val groupChatReceivedMessage: TextView = view.findViewById(R.id.group_received_message)
     private val groupChatReceivedMessageTime: TextView = view.findViewById(R.id.group_received_message_time)
 
+    // Фотография и имя пользователя в групповом чате
     private val groupUserPhoto: CircleImageView = view.findViewById(R.id.photo_group_chat)
     private val groupUserName: TextView = view.findViewById(R.id.name_group_chat_text)
 
+    // Метод, отвечающий за отрисовку сообщения
     override fun drawMessage(view: MessageView) {
-        if (view.from == uid){
+        if (view.from == uid) {
+            // Отображение сообщения пользователя в пользовательском чате
             blockUserMessage.visibility = View.VISIBLE
             blockReceivedMessage.visibility = View.GONE
             groupBlockReceivedMessage.visibility = View.GONE
             groupUserPhoto.visibility = View.GONE
             chatUserMessage.text = view.text
             chatUserMessageTime.text = view.timeStamp.asTime()
-        } else{
+        } else {
             if (isGroupChat) {
+                // Отображение полученного сообщения в групповом чате
                 blockUserMessage.visibility = View.GONE
                 blockReceivedMessage.visibility = View.GONE
                 groupBlockReceivedMessage.visibility = View.VISIBLE
@@ -52,6 +59,7 @@ class HolderTextMessage(view:View, private val isGroupChat: Boolean):RecyclerVie
                 groupChatReceivedMessageTime.text = view.timeStamp.asTime()
                 receivePhotoAndName(view)
             } else {
+                // Отображение полученного сообщения в пользовательском чате
                 blockUserMessage.visibility = View.GONE
                 blockReceivedMessage.visibility = View.VISIBLE
                 groupBlockReceivedMessage.visibility = View.GONE
@@ -62,12 +70,14 @@ class HolderTextMessage(view:View, private val isGroupChat: Boolean):RecyclerVie
         }
     }
 
+    // Обработчик нажатия на фотографию пользователя в групповом чате для отображения профиля пользователя
     fun goToProfileUser(userProfile: CommonModel) {
         groupUserPhoto.setOnClickListener {
             APP_ACTIVITY.replaceFragment(UserProfileFragment(userProfile))
         }
     }
 
+    // Получение фотографии и имени отправителя сообщения в групповом чате
     fun receivePhotoAndName(view: MessageView) {
         if (view.from != uid) {
             val database: FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -80,6 +90,7 @@ class HolderTextMessage(view:View, private val isGroupChat: Boolean):RecyclerVie
                         userRef.get().await()
                     }
 
+                    // Извлечение данных пользователя из Firebase Realtime Database
                     val photoUrl = dataSnapshot.child("photoUrl").getValue(String::class.java)
                     val fullname = dataSnapshot.child("fullname").getValue(String::class.java)
                     val name = dataSnapshot.child("name").getValue(String::class.java)
@@ -89,9 +100,12 @@ class HolderTextMessage(view:View, private val isGroupChat: Boolean):RecyclerVie
                     val workplace = dataSnapshot.child("workplace").getValue(String::class.java)
                     val experience = dataSnapshot.child("experience").getValue(String::class.java)
 
+                    // Загрузка фотографии пользователя в групповом чате
                     groupUserPhoto.downloadAndSetImage(photoUrl)
+                    // Отображение имени пользователя в групповом чате
                     groupUserName.text = fullname
 
+                    // Создание объекта CommonModel, представляющего профиль пользователя
                     val userProfile = CommonModel(
                         "",
                         name ?: "",
@@ -102,8 +116,10 @@ class HolderTextMessage(view:View, private val isGroupChat: Boolean):RecyclerVie
                         workplace ?: "",
                         education ?: "",
                         experience ?: "",
-                        photoUrl ?: "")
+                        photoUrl ?: ""
+                    )
 
+                    // Переход на профиль пользователя при нажатии на его фотографию в групповом чате
                     goToProfileUser(userProfile)
 
                 } catch (e: Exception) { }
